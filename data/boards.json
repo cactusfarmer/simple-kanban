@@ -1,0 +1,19 @@
+{
+    "boards": [
+        {
+            "name": "Building work",
+            "columns": [
+                {
+                    "name": "To do",
+                    "cards": [
+                        {
+                            "name": "Chimney",
+                            "owner": "Matt",
+                            "info": "1 am monday please"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
