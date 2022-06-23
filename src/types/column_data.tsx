@@ -1,6 +1,6 @@
-import { CardData } from "./card_data"
+import { CardData } from './card_data';
 
 export type ColumnData = {
-    name: string
-    cards: CardData[] 
-}
+  name: string
+  cards: CardData[]
+};

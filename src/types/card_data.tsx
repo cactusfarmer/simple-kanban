@@ -1,5 +1,5 @@
 export type CardData = {
-    name: string
-    owner?: string
-    info?: string
-}
+  name: string
+  owner?: string
+  info?: string
+};

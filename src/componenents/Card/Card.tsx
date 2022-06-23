@@ -1,13 +1,15 @@
-import { CardData } from "../../types/card_data"
+import { CardData } from '../../types/card_data';
 
 type Props = {
-    data: CardData
+  data: CardData
+};
+
+function Card({ data }: Props) {
+  return (
+    <li>
+      <h3>{data.name}</h3>
+    </li>
+  );
 }
 
-const Card = ({ data }: Props) => (
-    <li>
-        <h3>{data.name}</h3>
-    </li>
-)
-
-export default Card
+export default Card;

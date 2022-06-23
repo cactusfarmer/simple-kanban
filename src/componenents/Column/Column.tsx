@@ -1,18 +1,22 @@
-import { ColumnData } from "../../types/column_data"
-import Card from "../Card/Card"
+import { ColumnData } from '../../types/column_data';
+import Card from '../Card/Card';
 
 type Props = {
-    data: ColumnData
-}
-const Column = ({ data }: Props) => (
+  data: ColumnData
+};
+function Column({ data }: Props) {
+  return (
     <li className="column">
-        <h2>{data.name}</h2>
-        <ul className="cards">{
-            data.cards.map(card => (
-                <Card data={card}></Card>
+      <h2>{data.name}</h2>
+      <ul className="cards">
+        {
+            data.cards.map((card) => (
+              <Card data={card} />
             ))
-        }</ul>
+        }
+      </ul>
     </li>
-)
+  );
+}
 
-export default Column
+export default Column;

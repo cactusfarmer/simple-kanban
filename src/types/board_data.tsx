@@ -1,6 +1,6 @@
-import { ColumnData } from "./column_data"
+import { ColumnData } from './column_data';
 
 export type BoardData = {
-    name: string
-    columns: ColumnData[]
-}
+  name: string
+  columns: ColumnData[]
+};
