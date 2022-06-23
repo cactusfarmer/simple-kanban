@@ -5,10 +5,12 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "airbnb-typescript"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
+        "project" : "./tsconfg.json",
         "ecmaFeatures": {
             "jsx": true
         },
