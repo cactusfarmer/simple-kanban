@@ -1,6 +1,6 @@
 import './App.css';
 import Wall from '../Wall/Wall';
-import data from '../../../data/boards.json'
+import data from '../../data/boards.json' 
 import { WallData } from '../../types/wall_data';
 
 const wallData: WallData = data
