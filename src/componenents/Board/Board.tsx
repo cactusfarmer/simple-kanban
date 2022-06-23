@@ -2,8 +2,8 @@ import { BoardData } from '../../types/board_data';
 import Column from '../Column/Column';
 
 type Props = {
-    data: BoardData
-}
+  data: BoardData
+};
 
 function Board({ data }: Props): any {
   return (
@@ -12,10 +12,10 @@ function Board({ data }: Props): any {
       <div>
         <ul className="columns">
           {
-                data.columns.map((column) => (
-                  <Column data={column} />
-                ))
-}
+            data.columns.map((column) => (
+              <Column data={column} />
+            ))
+          }
         </ul>
       </div>
     </div>
