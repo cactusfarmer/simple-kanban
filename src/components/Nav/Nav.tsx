@@ -4,14 +4,13 @@ type Props = {
   data: string[]
 };
 const NavWrapper = styled.div`
-                    width: 300px;
-                    top:50px;
-                    height: calc(100vh - 20px);
+                    background-color: #efefef;
                     box-sizing: border-box;
-                    background-color: azure;
-                    border-right: 1px solid gainsboro;
                     display: flex;
                     flex-direction: column;
+                    height: calc(100vh - 20px);
+                    top:20px;
+                    width: 300px;
 `;
 
 function Nav({ data }: Props) {

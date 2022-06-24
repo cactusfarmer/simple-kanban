@@ -1,14 +1,22 @@
+import styled from 'styled-components';
 import { CardData } from '../../types/card_data';
 
 type Props = {
   data: CardData
 };
 
+const CardWrapper = styled.div`
+background-color: white;
+margin-bottom:16px;
+box-sizing: border-box;
+padding: 12px`;
+
 function Card({ data }: Props) {
   return (
-    <li>
+    <CardWrapper>
       <h3>{data.name}</h3>
-    </li>
+      <div>{data.info}</div>
+    </CardWrapper>
   );
 }
 

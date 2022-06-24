@@ -7,9 +7,43 @@
                     "name": "To do",
                     "cards": [
                         {
+                            "name": "Kitchen",
+                            "owner": "Mark",
+                            "info": "Knock down wall, Level floor, sort pipework"
+                        },
+                        {
+                            "name": "Woodburner",
+                            "owner": "Sam",
+                            "info": "Install and test"
+                        },{
+                            "name": "Garage",
+                            "owner": "Sam",
+                            "info": "Look at roofing costs" 
+                        }
+                    ]
+                },
+                {
+                    "name": "Doing",
+                    "cards": [
+                        {
                             "name": "Chimney",
                             "owner": "Matt",
-                            "info": "1 am monday please"
+                            "info": "Get costs together, call up builbase"
+                        }
+                    ]
+                },
+                {
+                    "name": "Done",
+                    "cards": [
+                        {
+                            "name": "Bathroom",
+                            "owner": "Ryan",
+                            "info": "Tiling, fit bath and sink"
+                        },
+                        {
+                            "name": "Carpets",
+                            "owner": "Karl",
+                            "info": "Fit carpets and underlay"
                         }
                     ]
                 }
