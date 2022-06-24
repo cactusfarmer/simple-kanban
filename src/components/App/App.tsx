@@ -1,4 +1,3 @@
-import './App.css';
 import styled from 'styled-components';
 import Wall from '../Wall/Wall';
 import data from '../../data/boards.json';
@@ -8,11 +7,11 @@ import Nav from '../Nav/Nav';
 const Wrapper = styled.div`
     box-sizing: border-box;
     display: flex;
-    min-height: 100%;`
+    min-height: 100%;`;
 
 const { boards }: WallData = data;
 
-const boardNames: string[] = boards.map(b => b.name)
+const boardNames: string[] = boards.map((b) => b.name);
 
 function App() {
   return (
