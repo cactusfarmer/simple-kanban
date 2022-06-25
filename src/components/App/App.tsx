@@ -4,7 +4,7 @@ import data from '../../data/boards.json';
 import { WallData } from '../../types/wall_data';
 import Nav from '../Nav/Nav';
 
-const Wrapper = styled.div`
+const AppWrap = styled.div`
     box-sizing: border-box;
     display: flex;
     min-height: 100%;`;
@@ -15,10 +15,10 @@ const boardNames: string[] = boards.map((b) => b.name);
 
 function App() {
   return (
-    <Wrapper>
+    <AppWrap>
       <Nav data={boardNames} />
       <Wall data={boards} />
-    </Wrapper>
+    </AppWrap>
   );
 }
 

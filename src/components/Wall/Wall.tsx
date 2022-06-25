@@ -6,7 +6,7 @@ type Props = {
   data: BoardData[]
 };
 
-const WallWrapper = styled.main`
+const WallWrap = styled.main`
 position: relative;
 flex-basis: 100vw;
 min-width: 0;
@@ -14,13 +14,13 @@ min-height: 100%;`;
 
 function Wall({ data }: Props) {
   return (
-    <WallWrapper>
+    <WallWrap>
       {
         data.map((b: BoardData) => (
           <Board data={b} />
         ))
       }
-    </WallWrapper>
+    </WallWrap>
   );
 }
 

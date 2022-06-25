@@ -48,6 +48,45 @@
                     ]
                 }
             ]
+        }, {
+            "name": "Fitness",
+            "columns": [
+                {
+                    "name": "To do",
+                    "cards": [
+                        {
+                            "name": "Swimming",
+                            "owner": "Matt",
+                            "info": "Go on monday" 
+                        }
+                    ]
+                },
+                {
+                    "name": "Doing",
+                    "cards": [
+                        {
+                            "name": "Chimney",
+                            "owner": "Matt",
+                            "info": "Get costs together, call up builbase"
+                        }
+                    ]
+                },
+                {
+                    "name": "Done",
+                    "cards": [
+                        {
+                            "name": "Bathroom",
+                            "owner": "Ryan",
+                            "info": "Tiling, fit bath and sink"
+                        },
+                        {
+                            "name": "Carpets",
+                            "owner": "Karl",
+                            "info": "Fit carpets and underlay"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 type Props = {
   data: string[]
 };
-const NavWrapper = styled.div`
+const NavWrap = styled.div`
                     background-color: #efefef;
                     box-sizing: border-box;
                     display: flex;
@@ -12,16 +12,17 @@ const NavWrapper = styled.div`
                     top:20px;
                     width: 300px;
 `;
+const NavBody = styled.ul``;
 
 function Nav({ data }: Props) {
   return (
-    <NavWrapper>
-      <ul>
+    <NavWrap>
+      <NavBody>
         {data.map((d) => (
           <li>{d}</li>
         ))}
-      </ul>
-    </NavWrapper>
+      </NavBody>
+    </NavWrap>
   );
 }
 

@@ -5,18 +5,22 @@ type Props = {
   data: CardData
 };
 
-const CardWrapper = styled.div`
+const CardWrap = styled.div`
 background-color: white;
 margin-bottom:16px;
 box-sizing: border-box;
 padding: 12px`;
 
+const CardHead = styled.h3``;
+
+const CardBody = styled.div``;
+
 function Card({ data }: Props) {
   return (
-    <CardWrapper>
-      <h3>{data.name}</h3>
-      <div>{data.info}</div>
-    </CardWrapper>
+    <CardWrap>
+      <CardHead>{data.name}</CardHead>
+      <CardBody>{data.info}</CardBody>
+    </CardWrap>
   );
 }
 
