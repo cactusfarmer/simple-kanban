@@ -3,7 +3,9 @@ import { BoardData } from '../../types/board_data';
 import Column from '../Column/Column';
 
 type Props = {
-  data: BoardData
+  allBoards: BoardData[]
+  board: BoardData
+  setData: Function
 };
 const BoardWrap = styled.div`
 background-color: AliceBlue;
@@ -24,14 +26,16 @@ height: calc(100% -44px);
 padding: 0 16px 0 16px;
 position: relative;`;
 
-function Board({ data }: Props): any {
+function Board({ allBoards, board, setData }: Props): any {
+  const path = [board.name];
+
   return (
     <BoardWrap>
-      <BoardHead>{data.name}</BoardHead>
+      <BoardHead>{board.name}</BoardHead>
       <BoardBody>
         {
-          data.columns.map((column) => (
-            <Column data={column} />
+          board.columns.map((column) => (
+            <Column allBoards={allBoards} setData={setData} column={column} ancestors={path} />
           ))
         }
       </BoardBody>

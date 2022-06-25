@@ -1,9 +1,13 @@
 import styled from 'styled-components';
+import { BoardData } from '../../types/board_data';
 import { ColumnData } from '../../types/column_data';
 import Card from '../Card/Card';
 
 type Props = {
-  data: ColumnData
+  allBoards: BoardData[]
+  column: ColumnData
+  setData: Function
+  ancestors: string[]
 };
 
 const ColumnWrap = styled.div`
@@ -17,16 +21,29 @@ padding: 8px`;
 
 const ColumnMain = styled.div``;
 
-function Column({ data }: Props) {
+function Column({
+  allBoards, setData, column, ancestors,
+}: Props) {
+  const path = [...ancestors, column.name];
+
+  const handleDelete = () => {
+    console.log(allBoards, setData);
+    // setData(boardData);
+  };
+
   return (
     <ColumnWrap>
-      <ColumnHead>{data.name}</ColumnHead>
+      <ColumnHead>
+        {column.name}
+        {path.toString()}
+      </ColumnHead>
       <ColumnMain>
         {
-          data.cards.map((card) => (
-            <Card data={card} />
+          column.cards.map((card) => (
+            <Card allBoards={allBoards} card={card} setData={setData} ancestors={path} />
           ))
         }
+        <button onClick={handleDelete} type="button">Delete</button>
       </ColumnMain>
     </ColumnWrap>
   );

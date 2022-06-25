@@ -3,7 +3,8 @@ import { BoardData } from '../../types/board_data';
 import Board from '../Board/Board';
 
 type Props = {
-  data: BoardData[]
+  allBoards: BoardData[]
+  setState: Function
 };
 
 const WallWrap = styled.main`
@@ -12,14 +13,10 @@ flex-basis: 100vw;
 min-width: 0;
 min-height: 100%;`;
 
-function Wall({ data }: Props) {
+function Wall({ allBoards, setState: setData }: Props) {
   return (
     <WallWrap>
-      {
-        data.map((b: BoardData) => (
-          <Board data={b} />
-        ))
-      }
+      <Board allBoards={allBoards} board={allBoards[0]} setData={setData} />
     </WallWrap>
   );
 }
