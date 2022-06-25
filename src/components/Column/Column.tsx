@@ -6,7 +6,7 @@ import Card from '../Card/Card';
 type Props = {
   allBoards: BoardData[]
   column: ColumnData
-  setData: Function
+  setState: Function
   ancestors: string[]
 };
 
@@ -22,13 +22,13 @@ padding: 8px`;
 const ColumnMain = styled.div``;
 
 function Column({
-  allBoards, setData, column, ancestors,
+  allBoards, setState, column, ancestors,
 }: Props) {
   const path = [...ancestors, column.name];
 
   const handleDelete = () => {
-    console.log(allBoards, setData);
-    // setData(boardData);
+    console.log(allBoards, setState)
+    //setState(boardData);
   };
 
   return (
@@ -40,7 +40,7 @@ function Column({
       <ColumnMain>
         {
           column.cards.map((card) => (
-            <Card allBoards={allBoards} card={card} setData={setData} ancestors={path} />
+            <Card allBoards={allBoards} card={card} setState={setState} ancestors={path} />
           ))
         }
         <button onClick={handleDelete} type="button">Delete</button>

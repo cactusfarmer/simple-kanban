@@ -5,7 +5,7 @@ import Column from '../Column/Column';
 type Props = {
   allBoards: BoardData[]
   board: BoardData
-  setData: Function
+  setState: Function
 };
 const BoardWrap = styled.div`
 background-color: AliceBlue;
@@ -26,7 +26,7 @@ height: calc(100% -44px);
 padding: 0 16px 0 16px;
 position: relative;`;
 
-function Board({ allBoards, board, setData }: Props): any {
+function Board({ allBoards, board, setState }: Props): any {
   const path = [board.name];
 
   return (
@@ -35,7 +35,7 @@ function Board({ allBoards, board, setData }: Props): any {
       <BoardBody>
         {
           board.columns.map((column) => (
-            <Column allBoards={allBoards} setData={setData} column={column} ancestors={path} />
+            <Column allBoards={allBoards} setState={setState} column={column} ancestors={path} />
           ))
         }
       </BoardBody>

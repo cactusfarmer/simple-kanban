@@ -13,10 +13,10 @@ flex-basis: 100vw;
 min-width: 0;
 min-height: 100%;`;
 
-function Wall({ allBoards, setState: setData }: Props) {
+function Wall({ allBoards, setState }: Props) {
   return (
     <WallWrap>
-      <Board allBoards={allBoards} board={allBoards[0]} setData={setData} />
+      <Board allBoards={allBoards} board={allBoards[0]} setState={setState} />
     </WallWrap>
   );
 }

@@ -5,7 +5,7 @@ import { CardData } from '../../types/card_data';
 type Props = {
   allBoards: BoardData[]
   card: CardData
-  setData: Function
+  setState: Function
   ancestors: string[]
 };
 
@@ -20,13 +20,13 @@ const CardHead = styled.h3``;
 const CardBody = styled.div``;
 
 function Card({
-  allBoards, setData, card, ancestors,
+  allBoards, setState, card, ancestors,
 }: Props) {
   const path = [...ancestors, card.name];
 
   const handleDelete = () => {
-    console.log(allBoards, setData);
-    // setData(boardData);
+    console.log(allBoards, setState)
+    //setState(boardData);
   };
 
   return (
