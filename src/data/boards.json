@@ -15,10 +15,11 @@
                             "name": "Woodburner",
                             "owner": "Sam",
                             "info": "Install and test"
-                        },{
+                        },
+                        {
                             "name": "Garage",
                             "owner": "Sam",
-                            "info": "Look at roofing costs" 
+                            "info": "Look at roofing costs"
                         }
                     ]
                 },
@@ -48,7 +49,8 @@
                     ]
                 }
             ]
-        }, {
+        },
+        {
             "name": "Fitness",
             "columns": [
                 {
@@ -57,7 +59,7 @@
                         {
                             "name": "Swimming",
                             "owner": "Matt",
-                            "info": "Go on monday" 
+                            "info": "Go on monday"
                         }
                     ]
                 },
@@ -65,9 +67,9 @@
                     "name": "Doing",
                     "cards": [
                         {
-                            "name": "Chimney",
+                            "name": "Football",
                             "owner": "Matt",
-                            "info": "Get costs together, call up builbase"
+                            "info": "Twice a week"
                         }
                     ]
                 },
@@ -75,14 +77,9 @@
                     "name": "Done",
                     "cards": [
                         {
-                            "name": "Bathroom",
-                            "owner": "Ryan",
-                            "info": "Tiling, fit bath and sink"
-                        },
-                        {
-                            "name": "Carpets",
-                            "owner": "Karl",
-                            "info": "Fit carpets and underlay"
+                            "name": "Sauna",
+                            "owner": "Matt",
+                            "info": "Go on friday"
                         }
                     ]
                 }
