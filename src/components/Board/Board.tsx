@@ -29,12 +29,14 @@ position: relative;`;
 function Board({ allBoards, board, setState }: Props): any {
   const path = [board.name];
 
+  const { columns } = board;
+
   return (
     <BoardWrap>
       <BoardHead>{board.name}</BoardHead>
       <BoardBody>
         {
-          board.columns.map((column) => (
+          columns.map((column) => (
             <Column allBoards={allBoards} setState={setState} column={column} ancestors={path} />
           ))
         }

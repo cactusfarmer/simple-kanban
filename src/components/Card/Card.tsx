@@ -25,8 +25,8 @@ function Card({
   const path = [...ancestors, card.name];
 
   const handleDelete = () => {
-    console.log(allBoards, setState)
-    //setState(boardData);
+    console.log(allBoards, setState);
+    // setState(boardData);
   };
 
   return (

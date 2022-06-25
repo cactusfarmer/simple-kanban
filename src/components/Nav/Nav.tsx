@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import { BoardData } from '../../types/board_data';
 
 type Props = {
-  data: string[]
+  allBoards: BoardData[]
+  setState: Function
 };
 const NavWrap = styled.div`
                     background-color: #efefef;
@@ -14,12 +16,13 @@ const NavWrap = styled.div`
 `;
 const NavBody = styled.ul``;
 
-function Nav({ data }: Props) {
+function Nav({ allBoards, setState }: Props) {
+  console.log(allBoards, setState);
   return (
     <NavWrap>
       <NavBody>
-        {data.map((d) => (
-          <li>{d}</li>
+        {allBoards.map(({ name }) => (
+          <li>{name}</li>
         ))}
       </NavBody>
     </NavWrap>

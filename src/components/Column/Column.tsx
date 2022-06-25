@@ -26,9 +26,10 @@ function Column({
 }: Props) {
   const path = [...ancestors, column.name];
 
+  const { cards } = column;
   const handleDelete = () => {
-    console.log(allBoards, setState)
-    //setState(boardData);
+    console.log(allBoards, setState);
+    // setState(boardData);
   };
 
   return (
@@ -39,7 +40,7 @@ function Column({
       </ColumnHead>
       <ColumnMain>
         {
-          column.cards.map((card) => (
+          cards.map((card) => (
             <Card allBoards={allBoards} card={card} setState={setState} ancestors={path} />
           ))
         }

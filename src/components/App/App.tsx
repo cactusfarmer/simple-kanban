@@ -11,11 +11,10 @@ const Wrapper = styled.div`
 
 function App() {
   const [{ boards }, setState] = useState(data);
-  const boardNames: string[] = boards.map((b) => b.name);
 
   return (
     <Wrapper>
-      <Nav data={boardNames} />
+      <Nav allBoards={boards} setState={setState} />
       <Wall allBoards={boards} setState={setState} />
     </Wrapper>
   );
