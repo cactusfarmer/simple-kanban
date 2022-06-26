@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
 
 type Props = {
-  allBoards: BoardData[]
-  setState: Function
+  boards: BoardData[]
+  editBoard: Function
 };
 const NavWrap = styled.div`
                     background-color: #efefef;
@@ -16,19 +16,19 @@ const NavWrap = styled.div`
 `;
 const NavBody = styled.ul``;
 
-function Nav({ allBoards, setState }: Props) {
-  console.log(allBoards, setState);
+function Nav({ boards, editBoard }: Props) {
   return (
     <NavWrap>
       <NavBody>
-        {allBoards.map(({ name }, index) => (
-          <li>
+        {boards?.map(({ name }, index) => (
+          <li key={name}>
             {name}
             {' '}
             -
             {index}
           </li>
         ))}
+        <button type="button" onClick={() => { editBoard('ADD', [3]); }}>Add Board</button>
       </NavBody>
     </NavWrap>
   );

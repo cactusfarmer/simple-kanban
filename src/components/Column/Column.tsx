@@ -1,12 +1,10 @@
 import styled from 'styled-components';
-import { BoardData } from '../../types/board_data';
 import { ColumnData } from '../../types/column_data';
 import Card from '../Card/Card';
 
 type Props = {
-  allBoards: BoardData[]
   column: ColumnData
-  setState: Function
+  editBoard: Function
   columnPath: number[]
 };
 
@@ -21,34 +19,34 @@ padding: 8px`;
 
 const ColumnMain = styled.div``;
 
-function Column({
-  allBoards, setState, column, columnPath,
-}: Props) {
-  // const path = [...ancestors, column.name];
-
+function Column({ editBoard, column, columnPath }: Props) {
   const { cards } = column;
-  const handleDelete = () => {
-    console.log(allBoards, setState);
-    // setState(boardData);
-  };
 
   return (
     <ColumnWrap>
       <ColumnHead>
-        {column.name}
+        <div>{column.name}</div>
+        <button
+          onClick={() => {
+            editBoard('DELETE', columnPath);
+          }}
+          type="button"
+        >
+          Delete
+        </button>
       </ColumnHead>
       <ColumnMain>
         {
           cards.map((card, cardIndex) => (
             <Card
-              allBoards={allBoards}
+              key={card.name}
               card={card}
-              setState={setState}
+              editBoard={editBoard}
               cardPath={[...columnPath, cardIndex]}
             />
           ))
         }
-        <button onClick={handleDelete} type="button">Delete</button>
+
       </ColumnMain>
     </ColumnWrap>
   );

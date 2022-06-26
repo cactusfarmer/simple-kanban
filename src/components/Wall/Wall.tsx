@@ -3,8 +3,8 @@ import { BoardData } from '../../types/board_data';
 import Board from '../Board/Board';
 
 type Props = {
-  allBoards: BoardData[]
-  setState: Function
+  editBoard: Function
+  boards: BoardData[]
 };
 
 const WallWrap = styled.main`
@@ -13,10 +13,10 @@ flex-basis: 100vw;
 min-width: 0;
 min-height: 100%;`;
 
-function Wall({ allBoards, setState }: Props) {
+function Wall({ editBoard, boards }: Props) {
   return (
     <WallWrap>
-      <Board allBoards={allBoards} board={allBoards[0]} setState={setState} boardPath={[0]} />
+      <Board board={boards[0]} editBoard={editBoard} boardPath={[0]} />
     </WallWrap>
   );
 }

@@ -10,12 +10,23 @@ const Wrapper = styled.div`
     min-height: 100%;`;
 
 function App() {
-  const [{ boards }, setState] = useState(data);
+  const [state, setState] = useState(data);
+
+  const editBoard = (action: string, path: number[]) => {
+    console.log(action, path);
+    // const newState = state;
+    // setState(newState);
+    setState(state);
+  };
+
+  console.log('state', state);
+
+  const { boards } = state;
 
   return (
     <Wrapper>
-      <Nav allBoards={boards} setState={setState} />
-      <Wall allBoards={boards} setState={setState} />
+      <Nav boards={boards} editBoard={editBoard} />
+      <Wall boards={boards} editBoard={editBoard} />
     </Wrapper>
   );
 }

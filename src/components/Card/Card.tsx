@@ -1,11 +1,9 @@
 import styled from 'styled-components';
-import { BoardData } from '../../types/board_data';
 import { CardData } from '../../types/card_data';
 
 type Props = {
-  allBoards: BoardData[]
   card: CardData
-  setState: Function
+  editBoard: Function
   cardPath: number[]
 };
 
@@ -20,24 +18,23 @@ const CardHead = styled.h3``;
 const CardBody = styled.div``;
 
 function Card({
-  allBoards, setState, card, cardPath,
+  editBoard, card, cardPath,
 }: Props) {
-  // const path = [...ancestors, card.name];
-
-  const handleDelete = () => {
-    console.log(allBoards, setState);
-    // setState(boardData);
-  };
-
   return (
     <CardWrap>
       <CardHead>
-        {card.name}
-        {cardPath.toString()}
+        <div>{card.name}</div>
+        <button
+          onClick={() => {
+            editBoard('DELETE', cardPath);
+          }}
+          type="button"
+        >
+          Delete
+        </button>
       </CardHead>
       <CardBody>
         {card.info}
-        <button onClick={handleDelete} type="button">Delete</button>
       </CardBody>
     </CardWrap>
   );

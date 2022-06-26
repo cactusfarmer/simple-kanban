@@ -3,9 +3,8 @@ import { BoardData } from '../../types/board_data';
 import Column from '../Column/Column';
 
 type Props = {
-  allBoards: BoardData[]
   board: BoardData
-  setState: Function
+  editBoard: Function
   boardPath: number[]
 };
 
@@ -29,21 +28,29 @@ padding: 0 16px 0 16px;
 position: relative;`;
 
 function Board({
-  allBoards, board, setState, boardPath,
+  board, editBoard, boardPath,
 }: Props): any {
-  // const path = [board.name];
-
   const { columns } = board;
 
   return (
     <BoardWrap>
-      <BoardHead>{board.name}</BoardHead>
+      <BoardHead>
+        <div>{board.name}</div>
+        <button
+          onClick={() => {
+            editBoard('DELETE', boardPath);
+          }}
+          type="button"
+        >
+          Delete
+        </button>
+      </BoardHead>
       <BoardBody>
         {
           columns.map((column, columnIndex) => (
             <Column
-              allBoards={allBoards}
-              setState={setState}
+              key={column.name}
+              editBoard={editBoard}
               column={column}
               columnPath={[...boardPath, columnIndex]}
             />
