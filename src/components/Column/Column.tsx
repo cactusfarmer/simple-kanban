@@ -7,7 +7,7 @@ type Props = {
   allBoards: BoardData[]
   column: ColumnData
   setState: Function
-  ancestors: string[]
+  columnPath: number[]
 };
 
 const ColumnWrap = styled.div`
@@ -22,9 +22,9 @@ padding: 8px`;
 const ColumnMain = styled.div``;
 
 function Column({
-  allBoards, setState, column, ancestors,
+  allBoards, setState, column, columnPath,
 }: Props) {
-  const path = [...ancestors, column.name];
+  // const path = [...ancestors, column.name];
 
   const { cards } = column;
   const handleDelete = () => {
@@ -36,12 +36,16 @@ function Column({
     <ColumnWrap>
       <ColumnHead>
         {column.name}
-        {path.toString()}
       </ColumnHead>
       <ColumnMain>
         {
-          cards.map((card) => (
-            <Card allBoards={allBoards} card={card} setState={setState} ancestors={path} />
+          cards.map((card, cardIndex) => (
+            <Card
+              allBoards={allBoards}
+              card={card}
+              setState={setState}
+              cardPath={[...columnPath, cardIndex]}
+            />
           ))
         }
         <button onClick={handleDelete} type="button">Delete</button>

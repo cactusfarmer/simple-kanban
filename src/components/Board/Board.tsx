@@ -6,7 +6,9 @@ type Props = {
   allBoards: BoardData[]
   board: BoardData
   setState: Function
+  boardPath: number[]
 };
+
 const BoardWrap = styled.div`
 background-color: AliceBlue;
 display: flex;
@@ -26,8 +28,10 @@ height: calc(100% -44px);
 padding: 0 16px 0 16px;
 position: relative;`;
 
-function Board({ allBoards, board, setState }: Props): any {
-  const path = [board.name];
+function Board({
+  allBoards, board, setState, boardPath,
+}: Props): any {
+  // const path = [board.name];
 
   const { columns } = board;
 
@@ -36,8 +40,13 @@ function Board({ allBoards, board, setState }: Props): any {
       <BoardHead>{board.name}</BoardHead>
       <BoardBody>
         {
-          columns.map((column) => (
-            <Column allBoards={allBoards} setState={setState} column={column} ancestors={path} />
+          columns.map((column, columnIndex) => (
+            <Column
+              allBoards={allBoards}
+              setState={setState}
+              column={column}
+              columnPath={[...boardPath, columnIndex]}
+            />
           ))
         }
       </BoardBody>

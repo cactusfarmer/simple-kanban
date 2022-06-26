@@ -6,7 +6,7 @@ type Props = {
   allBoards: BoardData[]
   card: CardData
   setState: Function
-  ancestors: string[]
+  cardPath: number[]
 };
 
 const CardWrap = styled.div`
@@ -20,9 +20,9 @@ const CardHead = styled.h3``;
 const CardBody = styled.div``;
 
 function Card({
-  allBoards, setState, card, ancestors,
+  allBoards, setState, card, cardPath,
 }: Props) {
-  const path = [...ancestors, card.name];
+  // const path = [...ancestors, card.name];
 
   const handleDelete = () => {
     console.log(allBoards, setState);
@@ -31,10 +31,12 @@ function Card({
 
   return (
     <CardWrap>
-      <CardHead>{card.name}</CardHead>
+      <CardHead>
+        {card.name}
+        {cardPath.toString()}
+      </CardHead>
       <CardBody>
         {card.info}
-        {path.toString()}
         <button onClick={handleDelete} type="button">Delete</button>
       </CardBody>
     </CardWrap>

@@ -16,7 +16,7 @@ min-height: 100%;`;
 function Wall({ allBoards, setState }: Props) {
   return (
     <WallWrap>
-      <Board allBoards={allBoards} board={allBoards[0]} setState={setState} />
+      <Board allBoards={allBoards} board={allBoards[0]} setState={setState} boardPath={[0]} />
     </WallWrap>
   );
 }

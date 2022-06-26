@@ -21,8 +21,13 @@ function Nav({ allBoards, setState }: Props) {
   return (
     <NavWrap>
       <NavBody>
-        {allBoards.map(({ name }) => (
-          <li>{name}</li>
+        {allBoards.map(({ name }, index) => (
+          <li>
+            {name}
+            {' '}
+            -
+            {index}
+          </li>
         ))}
       </NavBody>
     </NavWrap>
