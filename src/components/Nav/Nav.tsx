@@ -23,7 +23,7 @@ function Nav({ boards, operations: { board } }: Props) {
       <NavBody>
         {boards?.map(({ name, id }, index) => (
           <div key={id}>
-            <button type="button" onClick={() => { board.view({ id, elementIndex: index }); }}>
+            <button type="button" onClick={() => { board.view({ viaId: [id], viaIndex: [index] }); }}>
               {name}
             </button>
           </div>

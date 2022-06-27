@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { BoardOperations } from '../../types/board_operations';
 import { CardData } from '../../types/card_data';
-import { KanbanElement } from '../../types/kanban_element';
+import { Navigation } from '../../types/navigation';
 
 type Props = {
   card: CardData
   operations: BoardOperations
-  cardPath: KanbanElement[]
+  cardPath: Navigation
 };
 
 const CardWrap = styled.div`

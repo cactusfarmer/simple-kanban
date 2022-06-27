@@ -6,7 +6,7 @@ import Nav from '../Nav/Nav';
 import { BoardOperations } from '../../types/board_operations';
 import CardEdit from '../CardEdit/CardEdit';
 import { CardData } from '../../types/card_data';
-import { KanbanElement } from '../../types/kanban_element';
+import { Navigation } from '../../types/navigation';
 
 const Wrapper = styled.div`
     box-sizing: border-box;
@@ -17,17 +17,17 @@ function App() {
   const [boardsData, updateBoards] = useState(data);
   const panel: { data?: CardData } = {};
   const [sidePanel, setSidePanel] = useState(panel);
-  const [chosenBoard, setChosenBoard] = useState({ id: 1, elementIndex: 0 } as KanbanElement);
+  const [chosenBoard, setChosenBoard] = useState(0);
 
   const operations: BoardOperations = {
     card: {
-      edit: (cardPath: KanbanElement[]) => {
+      edit: (cardPath: Navigation) => {
         console.log(cardPath);
         // This is potentially better but would mean having the
         // card paths being made of array indexes?
-        const card = boardsData.boards[cardPath[0].elementIndex]
-          .columns[cardPath[1].elementIndex]
-          .cards[cardPath[2].elementIndex];
+        const card = boardsData.boards[cardPath.viaIndex[0]]
+          .columns[cardPath.viaIndex[1]]
+          .cards[cardPath.viaIndex[2]];
         setSidePanel({
           data: card,
         });
@@ -48,9 +48,9 @@ function App() {
     },
     board: {
       add: () => console.log('Add board'),
-      view: (board: KanbanElement) => {
+      view: (board: Navigation) => {
         setSidePanel({});
-        setChosenBoard(board);
+        setChosenBoard(board.viaIndex[0]);
       },
     },
   };

@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
 import { BoardOperations } from '../../types/board_operations';
-import { KanbanElement } from '../../types/kanban_element';
+import { Navigation } from '../../types/navigation';
 import Column from '../Column/Column';
 
 type Props = {
   board: BoardData
   operations: BoardOperations
-  boardPath: KanbanElement[] // number[]
+  boardPath: Navigation // number[]
 };
 
 const BoardWrap = styled.div`
@@ -46,7 +46,12 @@ function Board({
               key={column.id}
               operations={operations}
               column={column}
-              columnPath={[...boardPath, { id: column.id, elementIndex: index }]}
+              columnPath={{
+                ...boardPath,
+                viaId:
+                [...boardPath.viaId, column.id],
+                viaIndex: [...boardPath.viaIndex, index],
+              }}
             />
           ))
         }
