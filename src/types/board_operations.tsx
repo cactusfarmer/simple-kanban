@@ -5,5 +5,6 @@ export type BoardOperations = {
         add: Function, 
         delete: Function },
     board: {
-        add: Function
+        add: Function,
+        view: Function
     } };

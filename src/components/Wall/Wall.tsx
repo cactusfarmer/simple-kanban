@@ -7,6 +7,7 @@ import Board from '../Board/Board';
 type Props = {
   operations: BoardOperations
   boards: BoardData[]
+  boardPath: KanbanElement
 };
 
 const WallWrap = styled.main`
@@ -16,12 +17,16 @@ min-width: 0;
 min-height: 100%;
 margin: 0 !important`;
 
-function Wall({ operations, boards }: Props) {
-  const path : KanbanElement[] = [{ id: boards[0].id, elementIndex: 0 }];
+function Wall({ operations, boards, boardPath }: Props) {
+  // const path : KanbanElement[] = [{ id: boards[1].id, elementIndex: 1 }];
 
   return (
     <WallWrap>
-      <Board board={boards[0]} operations={operations} boardPath={path} />
+      <Board
+        board={boards[boardPath.elementIndex]}
+        operations={operations}
+        boardPath={[boardPath]}
+      />
     </WallWrap>
   );
 }

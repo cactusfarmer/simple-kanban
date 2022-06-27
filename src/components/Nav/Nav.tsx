@@ -21,18 +21,13 @@ function Nav({ boards, operations: { board } }: Props) {
   return (
     <NavWrap>
       <NavBody>
-        <button type="button" onClick={() => board.add()}>+ Add new</button>
-        <ul>
-          {boards?.map(({ name, id }) => (
-            <li key={name}>
+        {boards?.map(({ name, id }, index) => (
+          <div key={id}>
+            <button type="button" onClick={() => { board.view({ id, elementIndex: index }); }}>
               {name}
-              {' '}
-              -
-              {id}
-            </li>
-          ))}
-        </ul>
-
+            </button>
+          </div>
+        ))}
       </NavBody>
     </NavWrap>
   );

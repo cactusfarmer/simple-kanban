@@ -11,6 +11,7 @@ type Props = {
 
 const CardWrap = styled.div`
 background-color: white;
+cursor: pointer;
 margin-bottom:16px;
 box-sizing: border-box;
 padding: 12px`;

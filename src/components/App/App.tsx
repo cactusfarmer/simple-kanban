@@ -17,6 +17,7 @@ function App() {
   const [boardsData, updateBoards] = useState(data);
   const panel: { data?: CardData } = {};
   const [sidePanel, setSidePanel] = useState(panel);
+  const [chosenBoard, setChosenBoard] = useState({ id: 1, elementIndex: 0 } as KanbanElement);
 
   const operations: BoardOperations = {
     card: {
@@ -47,6 +48,10 @@ function App() {
     },
     board: {
       add: () => console.log('Add board'),
+      view: (board: KanbanElement) => {
+        setSidePanel({});
+        setChosenBoard(board);
+      },
     },
   };
 
@@ -55,7 +60,7 @@ function App() {
   return (
     <Wrapper>
       <Nav boards={boards} operations={operations} />
-      <Wall boards={boards} operations={operations} />
+      <Wall boards={boards} operations={operations} boardPath={chosenBoard} />
       {sidePanel?.data && (<CardEdit card={sidePanel.data} />)}
     </Wrapper>
   );
