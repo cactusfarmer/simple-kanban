@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { BoardOperations } from '../../types/board_operations';
 import { CardData } from '../../types/card_data';
 
 type Props = {
   card: CardData
-  editBoard: Function
+  operations: BoardOperations
   cardPath: number[]
 };
 
@@ -18,20 +19,15 @@ const CardHead = styled.h3``;
 const CardBody = styled.div``;
 
 function Card({
-  editBoard, card, cardPath,
+  operations, card, cardPath,
 }: Props) {
   return (
-    <CardWrap>
+    <CardWrap onClick={() => {
+      operations.card.update(cardPath);
+    }}
+    >
       <CardHead>
-        <div>{card.name}</div>
-        <button
-          onClick={() => {
-            editBoard('DELETE', cardPath);
-          }}
-          type="button"
-        >
-          Delete
-        </button>
+        {card.name}
       </CardHead>
       <CardBody>
         {card.info}

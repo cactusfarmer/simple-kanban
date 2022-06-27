@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Wall from '../Wall/Wall';
 import data from '../../data/boards.json';
 import Nav from '../Nav/Nav';
+import { BoardOperations } from '../../types/board_operations';
 
 const Wrapper = styled.div`
     box-sizing: border-box;
@@ -12,21 +13,36 @@ const Wrapper = styled.div`
 function App() {
   const [state, setState] = useState(data);
 
-  const editBoard = (action: string, path: number[]) => {
-    console.log(action, path);
-    // const newState = state;
-    // setState(newState);
-    setState(state);
+  const operations: BoardOperations = {
+    card: {
+      update: (cardPath: number[]) => {
+        console.log(cardPath);
+        setState(state);
+      },
+      move: (
+        currentPath: number[],
+        newPath: number[],
+      ) => {
+        console.log(currentPath, newPath);
+      },
+      add: (columnPath: number[]) => {
+        console.log(columnPath);
+      },
+      delete: (cardPath: number[]) => {
+        console.log(cardPath);
+      },
+    },
+    board: {
+      add: () => console.log('Add board'),
+    },
   };
-
-  console.log('state', state);
 
   const { boards } = state;
 
   return (
     <Wrapper>
-      <Nav boards={boards} editBoard={editBoard} />
-      <Wall boards={boards} editBoard={editBoard} />
+      <Nav boards={boards} operations={operations} />
+      <Wall boards={boards} operations={operations} />
     </Wrapper>
   );
 }

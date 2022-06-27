@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { BoardOperations } from '../../types/board_operations';
 import { ColumnData } from '../../types/column_data';
 import Card from '../Card/Card';
 
 type Props = {
   column: ColumnData
-  editBoard: Function
+  operations: BoardOperations
   columnPath: number[]
 };
 
@@ -19,30 +20,22 @@ padding: 8px`;
 
 const ColumnMain = styled.div``;
 
-function Column({ editBoard, column, columnPath }: Props) {
+function Column({ operations, column, columnPath }: Props) {
   const { cards } = column;
 
   return (
     <ColumnWrap>
       <ColumnHead>
-        <div>{column.name}</div>
-        <button
-          onClick={() => {
-            editBoard('DELETE', columnPath);
-          }}
-          type="button"
-        >
-          Delete
-        </button>
+        {column.name}
       </ColumnHead>
       <ColumnMain>
         {
-          cards.map((card, cardIndex) => (
+          cards.map((card) => (
             <Card
-              key={card.name}
+              key={card.id}
               card={card}
-              editBoard={editBoard}
-              cardPath={[...columnPath, cardIndex]}
+              operations={operations}
+              cardPath={[...columnPath, card.id]}
             />
           ))
         }

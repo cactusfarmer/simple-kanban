@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
+import { BoardOperations } from '../../types/board_operations';
 import Column from '../Column/Column';
 
 type Props = {
   board: BoardData
-  editBoard: Function
+  operations: BoardOperations
   boardPath: number[]
 };
 
@@ -28,31 +29,23 @@ padding: 0 16px 0 16px;
 position: relative;`;
 
 function Board({
-  board, editBoard, boardPath,
+  board, operations, boardPath,
 }: Props): any {
   const { columns } = board;
 
   return (
     <BoardWrap>
       <BoardHead>
-        <div>{board.name}</div>
-        <button
-          onClick={() => {
-            editBoard('DELETE', boardPath);
-          }}
-          type="button"
-        >
-          Delete
-        </button>
+        {board.name}
       </BoardHead>
       <BoardBody>
         {
-          columns.map((column, columnIndex) => (
+          columns.map((column) => (
             <Column
-              key={column.name}
-              editBoard={editBoard}
+              key={column.id}
+              operations={operations}
               column={column}
-              columnPath={[...boardPath, columnIndex]}
+              columnPath={[...boardPath, column.id]}
             />
           ))
         }
