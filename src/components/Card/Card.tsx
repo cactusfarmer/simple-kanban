@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { BoardOperations } from '../../types/board_operations';
 import { CardData } from '../../types/card_data';
+import { KanbanElement } from '../../types/kanban_element';
 
 type Props = {
   card: CardData
   operations: BoardOperations
-  cardPath: number[]
+  cardPath: KanbanElement[]
 };
 
 const CardWrap = styled.div`
@@ -23,7 +24,7 @@ function Card({
 }: Props) {
   return (
     <CardWrap onClick={() => {
-      operations.card.update(cardPath);
+      operations.card.edit(cardPath);
     }}
     >
       <CardHead>

@@ -1,6 +1,6 @@
 export type BoardOperations = { 
     card: { 
-        update: Function, 
+        edit: Function, 
         move: Function, 
         add: Function, 
         delete: Function },

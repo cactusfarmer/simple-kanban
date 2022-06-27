@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { BoardOperations } from '../../types/board_operations';
 import { ColumnData } from '../../types/column_data';
+import { KanbanElement } from '../../types/kanban_element';
 import Card from '../Card/Card';
 
 type Props = {
   column: ColumnData
   operations: BoardOperations
-  columnPath: number[]
+  columnPath: KanbanElement[]
 };
 
 const ColumnWrap = styled.div`
@@ -30,12 +31,12 @@ function Column({ operations, column, columnPath }: Props) {
       </ColumnHead>
       <ColumnMain>
         {
-          cards.map((card) => (
+          cards.map((card, index) => (
             <Card
               key={card.id}
               card={card}
               operations={operations}
-              cardPath={[...columnPath, card.id]}
+              cardPath={[...columnPath, { id: card.id, elementIndex: index }]}
             />
           ))
         }
