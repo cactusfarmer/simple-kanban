@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { BoardOperations } from '../../types/board_operations';
 import { CardData } from '../../types/card_data';
-import { Navigation } from '../../types/navigation';
+import { BoardPath } from '../../types/board_path';
 
 type Props = {
   card: CardData
   operations: BoardOperations
-  cardPath: Navigation
+  cardPath: BoardPath
 };
 
 const CardWrap = styled.div`
@@ -25,7 +25,7 @@ function Card({
 }: Props) {
   return (
     <CardWrap onClick={() => {
-      operations.card.edit(cardPath);
+      operations.card.edit(cardPath, card);
     }}
     >
       <CardHead>

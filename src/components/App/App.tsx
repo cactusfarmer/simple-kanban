@@ -6,7 +6,7 @@ import Nav from '../Nav/Nav';
 import { BoardOperations } from '../../types/board_operations';
 import CardEdit from '../CardEdit/CardEdit';
 import { CardData } from '../../types/card_data';
-import { Navigation } from '../../types/navigation';
+import { BoardPath } from '../../types/board_path';
 
 const Wrapper = styled.div`
     box-sizing: border-box;
@@ -17,17 +17,12 @@ function App() {
   const [boardsData, updateBoards] = useState(data);
   const panel: { data?: CardData } = {};
   const [sidePanel, setSidePanel] = useState(panel);
-  const [chosenBoard, setChosenBoard] = useState(0);
+  const [boardPath, setChosenBoardById] = useState({ viaId: [1], viaIndex: [0] } as BoardPath);
 
   const operations: BoardOperations = {
     card: {
-      edit: (cardPath: Navigation) => {
-        console.log(cardPath);
-        // This is potentially better but would mean having the
-        // card paths being made of array indexes?
-        const card = boardsData.boards[cardPath.viaIndex[0]]
-          .columns[cardPath.viaIndex[1]]
-          .cards[cardPath.viaIndex[2]];
+      edit: (pathToCard: BoardPath, card: CardData) => {
+        console.log(pathToCard);
         setSidePanel({
           data: card,
         });
@@ -48,9 +43,9 @@ function App() {
     },
     board: {
       add: () => console.log('Add board'),
-      view: (board: Navigation) => {
+      view: (path: BoardPath) => {
         setSidePanel({});
-        setChosenBoard(board.viaIndex[0]);
+        setChosenBoardById(path);
       },
     },
   };
@@ -60,7 +55,7 @@ function App() {
   return (
     <Wrapper>
       <Nav boards={boards} operations={operations} />
-      <Wall boards={boards} operations={operations} boardPath={chosenBoard} />
+      <Wall boards={boards} operations={operations} boardPath={boardPath} />
       {sidePanel?.data && (<CardEdit card={sidePanel.data} />)}
     </Wrapper>
   );

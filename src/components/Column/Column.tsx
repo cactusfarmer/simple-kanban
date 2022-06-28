@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { BoardOperations } from '../../types/board_operations';
 import { ColumnData } from '../../types/column_data';
-import { Navigation } from '../../types/navigation';
+import { BoardPath } from '../../types/board_path';
 import Card from '../Card/Card';
 
 type Props = {
   column: ColumnData
   operations: BoardOperations
-  columnPath: Navigation
+  columnPath: BoardPath
 };
 
 const ColumnWrap = styled.div`

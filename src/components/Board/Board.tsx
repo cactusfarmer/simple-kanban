@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
 import { BoardOperations } from '../../types/board_operations';
-import { Navigation } from '../../types/navigation';
+import { BoardPath } from '../../types/board_path';
 import Column from '../Column/Column';
 
 type Props = {
   board: BoardData
   operations: BoardOperations
-  boardPath: Navigation // number[]
+  boardPath: BoardPath // number[]
 };
 
 const BoardWrap = styled.div`
