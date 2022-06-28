@@ -17,9 +17,15 @@ const NavWrap = styled.div`
 `;
 const NavBody = styled.ul``;
 
+const NavHead = styled.h2`
+padding-left: 16px`;
+
 function Nav({ boards, operations: { board } }: Props) {
   return (
     <NavWrap>
+      <NavHead>
+        All Boards
+      </NavHead>
       <NavBody>
         {boards?.map(({ name, id }, index) => (
           <div key={id}>

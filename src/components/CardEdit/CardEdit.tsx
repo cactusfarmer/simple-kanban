@@ -15,6 +15,9 @@ width: 10vw;
 border-left: 1px solid #999);
 `;
 
+const CardEditHead = styled.h2`
+padding-left: 16px`;
+
 type Props = {
   card: CardData
 };
@@ -22,6 +25,7 @@ type Props = {
 function CardEdit({ card }: Props) {
   return (
     <CardEditWrap>
+      <CardEditHead>Edit card...</CardEditHead>
       {card.info}
     </CardEditWrap>
   );
