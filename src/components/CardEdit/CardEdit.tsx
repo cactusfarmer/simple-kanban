@@ -27,7 +27,7 @@ type Props = {
 };
 
 function CardEdit({ sidePanelData, actions: { editCard } }: Props) {
-  let info = '';
+  let info = sidePanelData.cardData?.info;
 
   function handleFormSubmit(e: any) {
     e.preventDefault();
@@ -45,7 +45,7 @@ function CardEdit({ sidePanelData, actions: { editCard } }: Props) {
     <CardEditWrap>
       <CardEditHead>Edit card...</CardEditHead>
       <form action="" onSubmit={handleFormSubmit}>
-        <textarea onChange={handleTextAreaChange} defaultValue={sidePanelData.cardData?.info} id="info" name="info" />
+        <textarea onChange={handleTextAreaChange} value={sidePanelData.cardData?.info} id="info" name="info" />
         <button type="submit">Update...</button>
       </form>
     </CardEditWrap>
