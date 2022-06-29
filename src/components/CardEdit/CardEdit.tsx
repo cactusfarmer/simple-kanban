@@ -1,7 +1,7 @@
+import React from 'react';
 import styled from 'styled-components';
-import React, { useEffect, useRef } from 'react';
-import { CardActions } from '../../types/kanban_actions';
 import { CardData } from '../../types/card_data';
+import { CardActions } from '../../types/kanban_actions';
 import { SidePanelData } from '../../types/side_panel_data';
 
 const CardEditWrap = styled.div`
@@ -27,40 +27,25 @@ type Props = {
 };
 
 function CardEdit({ sidePanelData, actions: { editCard } }: Props) {
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
+  let info = '';
 
-  useEffect(() => {
-    console.log('re render: ', sidePanelData.cardData);
-    function handleFormSubmit(e: any) {
-      e.preventDefault();
-      if (textAreaRef.current !== null) {
-        editCard({
-          ...sidePanelData.cardData, info: textAreaRef.current.value,
-        } as CardData);
-      }
-    }
+  function handleFormSubmit(e: any) {
+    e.preventDefault();
+    editCard({
+      ...sidePanelData.cardData, info,
+    } as CardData);
+  }
 
-    function handleTextAreaChange() {
-      if (textAreaRef.current !== null) {
-        console.log(textAreaRef.current.value);
-      }
-    }
-
-    textAreaRef.current?.addEventListener('change', handleTextAreaChange);
-    formRef.current?.addEventListener('submit', handleFormSubmit);
-
-    return () => {
-      textAreaRef.current?.removeEventListener('change', handleTextAreaChange);
-      formRef.current?.removeEventListener('submit', handleFormSubmit);
-    };
-  }, [sidePanelData]);
+  function handleTextAreaChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    info = e.target.value;
+    console.log('state:', info);
+  }
 
   return (
     <CardEditWrap>
       <CardEditHead>Edit card...</CardEditHead>
-      <form action="" ref={formRef} onChange={() => { }}>
-        <textarea ref={textAreaRef} value={sidePanelData.cardData?.info} id="info" name="info" />
+      <form action="" onSubmit={handleFormSubmit}>
+        <textarea onChange={handleTextAreaChange} defaultValue={sidePanelData.cardData?.info} id="info" name="info" />
         <button type="submit">Update...</button>
       </form>
     </CardEditWrap>
