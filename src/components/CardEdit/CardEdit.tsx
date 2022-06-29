@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import React, { useEffect, useRef } from 'react';
 import { CardActions } from '../../types/kanban_actions';
 import { CardData } from '../../types/card_data';
 
@@ -24,17 +25,43 @@ type Props = {
   actions: CardActions
 };
 
-function CardEdit({ card, actions : {editCard} }: Props) {
-  const handleUpdate = (e: any) => {
-    e.preventDefault();
-    editCard();
-  };
+function CardEdit({ card, actions: { editCard } }: Props) {
+
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    const handleFormSubmit = (e: any) => {
+      e.preventDefault();
+      if (textAreaRef.current !== null) {
+        editCard({
+          ...card, info: textAreaRef.current.value,
+        } as CardData);
+      }
+    };
+
+    const handleTextAreaChange = () => {
+      if (textAreaRef.current !== null) {
+        console.log(textAreaRef.current.value);
+      }
+    };
+
+    // add listners here instead of elements??
+    textAreaRef.current?.addEventListener('change', handleTextAreaChange);
+    formRef.current?.addEventListener('submit', handleFormSubmit);
+
+    return () => {
+      textAreaRef.current?.removeEventListener('change', handleTextAreaChange);
+      formRef.current?.removeEventListener('submit', handleFormSubmit);
+    };
+  }, []);
 
   return (
     <CardEditWrap>
       <CardEditHead>Edit card...</CardEditHead>
-      <form action="" onSubmit={handleUpdate}>
-        {card.info}
+      <form action="" ref={formRef}>
+        <textarea ref={textAreaRef} defaultValue={card.info} id="info" name="info" />
+        <button type="submit">Update...</button>
       </form>
     </CardEditWrap>
   );

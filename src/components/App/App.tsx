@@ -21,7 +21,10 @@ function App() {
 
   const kanbanActions: KanbanActions = {
     cardActions: {
-      editCard: () => console.log("edit"),
+      editCard: (card: CardData) => {
+        console.log(card);
+        setSidePanel({});
+      },
       viewCard: (pathToCard: BoardPath, card: CardData) => {
         console.log(pathToCard);
         setSidePanel({
@@ -53,7 +56,7 @@ function App() {
   };
 
   const { boards } = boardsData;
-  const {cardActions, boardActions} = kanbanActions
+  const { cardActions, boardActions } = kanbanActions;
 
   return (
     <Wrapper>

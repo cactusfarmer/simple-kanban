@@ -17,13 +17,13 @@ min-width: 0;
 min-height: 100%;
 margin: 0 !important`;
 
-function Wall({ actions, boards, boardPath }: Props) {
-  const { viaIndex } = boardPath;
-  // console.log(boardPath);
+function Wall({
+  actions, boards, boardPath, boardPath: { viaIndex: index },
+}: Props) {
   return (
     <WallWrap>
       <Board
-        board={boards[viaIndex[0]]}
+        board={boards[index[0]]}
         actions={actions}
         boardPath={boardPath}
       />
