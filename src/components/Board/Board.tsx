@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
-import { BoardOperations } from '../../types/board_operations';
+import { KanbanActions } from '../../types/kanban_actions';
 import { BoardPath } from '../../types/board_path';
 import Column from '../Column/Column';
 
 type Props = {
   board: BoardData
-  operations: BoardOperations
+  actions: KanbanActions
   boardPath: BoardPath // number[]
 };
 
@@ -30,7 +30,7 @@ padding: 0 16px 0 16px;
 position: relative;`;
 
 function Board({
-  board, operations, boardPath,
+  board, actions, boardPath,
 }: Props): any {
   const { columns } = board;
 
@@ -44,7 +44,7 @@ function Board({
           columns.map((column, index) => (
             <Column
               key={column.id}
-              operations={operations}
+              actions={actions}
               column={column}
               columnPath={{
                 ...boardPath,

@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { BoardOperations } from '../../types/board_operations';
+import { KanbanActions } from '../../types/kanban_actions';
 import { ColumnData } from '../../types/column_data';
 import { BoardPath } from '../../types/board_path';
 import Card from '../Card/Card';
 
 type Props = {
   column: ColumnData
-  operations: BoardOperations
+  actions: KanbanActions
   columnPath: BoardPath
 };
 
@@ -21,7 +21,7 @@ padding: 8px`;
 
 const ColumnMain = styled.div``;
 
-function Column({ operations, column, columnPath }: Props) {
+function Column({ actions, column, columnPath }: Props) {
   const { cards } = column;
 
   return (
@@ -35,7 +35,7 @@ function Column({ operations, column, columnPath }: Props) {
             <Card
               key={card.id}
               card={card}
-              operations={operations}
+              actions={actions.card}
               cardPath={{
                 ...columnPath,
                 viaId: [...columnPath.viaId, card.id],

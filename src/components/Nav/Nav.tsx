@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
-import { BoardOperations } from '../../types/board_operations';
+import { BoardActions } from '../../types/kanban_actions';
 
 type Props = {
   boards: BoardData[]
-  operations: BoardOperations
+  actions: BoardActions
 };
 const NavWrap = styled.div`
                     background-color: #efefef;
@@ -20,7 +20,7 @@ const NavBody = styled.ul``;
 const NavHead = styled.h2`
 padding-left: 16px`;
 
-function Nav({ boards, operations: { board } }: Props) {
+function Nav({ boards, actions }: Props) {
   return (
     <NavWrap>
       <NavHead>
@@ -29,7 +29,7 @@ function Nav({ boards, operations: { board } }: Props) {
       <NavBody>
         {boards?.map(({ name, id }, index) => (
           <div key={id}>
-            <button type="button" onClick={() => { board.view({ viaId: [id], viaIndex: [index] }); }}>
+            <button type="button" onClick={() => { actions.view({ viaId: [id], viaIndex: [index] }); }}>
               {name}
             </button>
           </div>

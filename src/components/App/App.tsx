@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Wall from '../Wall/Wall';
 import data from '../../data/boards.json';
 import Nav from '../Nav/Nav';
-import { BoardOperations } from '../../types/board_operations';
+import { KanbanActions } from '../../types/kanban_actions';
 import CardEdit from '../CardEdit/CardEdit';
 import { CardData } from '../../types/card_data';
 import { BoardPath } from '../../types/board_path';
@@ -19,7 +19,7 @@ function App() {
   const [sidePanel, setSidePanel] = useState(panel);
   const [boardPath, setChosenBoardById] = useState({ viaId: [1], viaIndex: [0] } as BoardPath);
 
-  const operations: BoardOperations = {
+  const actions: KanbanActions = {
     card: {
       edit: (pathToCard: BoardPath, card: CardData) => {
         console.log(pathToCard);
@@ -48,15 +48,16 @@ function App() {
         setChosenBoardById(path);
       },
     },
+    column: {},
   };
 
   const { boards } = boardsData;
 
   return (
     <Wrapper>
-      <Nav boards={boards} operations={operations} />
-      <Wall boards={boards} operations={operations} boardPath={boardPath} />
-      {sidePanel?.data && (<CardEdit card={sidePanel.data} />)}
+      <Nav boards={boards} actions={actions.board} />
+      <Wall boards={boards} actions={actions} boardPath={boardPath} />
+      {sidePanel?.data && (<CardEdit card={sidePanel.data} actions={actions.card} />)}
     </Wrapper>
   );
 }

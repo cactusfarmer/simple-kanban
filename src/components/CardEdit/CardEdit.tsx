@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { CardActions } from '../../types/kanban_actions';
 import { CardData } from '../../types/card_data';
 
 const CardEditWrap = styled.div`
@@ -20,13 +21,21 @@ padding-left: 16px`;
 
 type Props = {
   card: CardData
+  actions: CardActions
 };
 
-function CardEdit({ card }: Props) {
+function CardEdit({ card, actions }: Props) {
+  const handleUpdate = (e: any) => {
+    e.preventDefault();
+    actions.add();
+  };
+
   return (
     <CardEditWrap>
       <CardEditHead>Edit card...</CardEditHead>
-      {card.info}
+      <form action="" onSubmit={handleUpdate}>
+        {card.info}
+      </form>
     </CardEditWrap>
   );
 }

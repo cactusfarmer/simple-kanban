@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
-import { BoardOperations } from '../../types/board_operations';
+import { KanbanActions } from '../../types/kanban_actions';
 import { BoardPath } from '../../types/board_path';
 import Board from '../Board/Board';
 
 type Props = {
-  operations: BoardOperations
+  actions: KanbanActions
   boards: BoardData[]
   boardPath: BoardPath
 };
@@ -17,14 +17,14 @@ min-width: 0;
 min-height: 100%;
 margin: 0 !important`;
 
-function Wall({ operations, boards, boardPath }: Props) {
+function Wall({ actions, boards, boardPath }: Props) {
   const { viaIndex } = boardPath;
   // console.log(boardPath);
   return (
     <WallWrap>
       <Board
         board={boards[viaIndex[0]]}
-        operations={operations}
+        actions={actions}
         boardPath={boardPath}
       />
     </WallWrap>
