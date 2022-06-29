@@ -21,7 +21,7 @@ padding: 8px`;
 
 const ColumnMain = styled.div``;
 
-function Column({ actions, column, columnPath }: Props) {
+function Column({ actions: { cardActions }, column, columnPath }: Props) {
   const { cards } = column;
 
   return (
@@ -35,7 +35,7 @@ function Column({ actions, column, columnPath }: Props) {
             <Card
               key={card.id}
               card={card}
-              actions={actions.cardActions}
+              actions={cardActions}
               cardPath={{
                 ...columnPath,
                 viaId: [...columnPath.viaId, card.id],

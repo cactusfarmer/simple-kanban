@@ -10,6 +10,7 @@ export type KanbanActions = {
 export type BoardActions = {
     addBoard: Function,
     viewBoard: (path: BoardPath) => void
+    hideSidePanel: Function
 }
 
 export type CardActions = {

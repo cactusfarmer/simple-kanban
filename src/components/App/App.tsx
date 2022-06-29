@@ -7,6 +7,7 @@ import { KanbanActions } from '../../types/kanban_actions';
 import CardEdit from '../CardEdit/CardEdit';
 import { CardData } from '../../types/card_data';
 import { BoardPath } from '../../types/board_path';
+import { SidePanelData } from '../../types/side_panel_data';
 
 const Wrapper = styled.div`
     box-sizing: border-box;
@@ -15,22 +16,23 @@ const Wrapper = styled.div`
 
 function App() {
   const [boardsData, updateBoards] = useState(data);
-  const panel: { data?: CardData } = {};
+  const panel: SidePanelData = { cardData: undefined };
   const [sidePanel, setSidePanel] = useState(panel);
   const [boardPath, setChosenBoardById] = useState({ viaId: [1], viaIndex: [0] } as BoardPath);
+
+  console.log(updateBoards.length);
 
   const kanbanActions: KanbanActions = {
     cardActions: {
       editCard: (card: CardData) => {
-        console.log(card);
-        setSidePanel({});
+        console.log('editCard', card);
+        setSidePanel({ cardData: undefined });
       },
       viewCard: (pathToCard: BoardPath, card: CardData) => {
-        console.log(pathToCard);
+        console.log('viewCard', pathToCard, card);
         setSidePanel({
-          data: card,
+          cardData: card,
         });
-        updateBoards(boardsData);
       },
       moveCard: (
         currentPath: number[],
@@ -48,9 +50,11 @@ function App() {
     boardActions: {
       addBoard: () => console.log('Add board'),
       viewBoard: (path: BoardPath) => {
-        setSidePanel({});
+        console.log('viewBoard', path);
+        setSidePanel({ cardData: undefined });
         setChosenBoardById(path);
       },
+      hideSidePanel: () => { console.log('hideSidePanel'); },
     },
     columnActions: {},
   };
@@ -62,7 +66,7 @@ function App() {
     <Wrapper>
       <Nav boards={boards} actions={boardActions} />
       <Wall boards={boards} actions={kanbanActions} boardPath={boardPath} />
-      {sidePanel?.data && (<CardEdit card={sidePanel.data} actions={cardActions} />)}
+      {sidePanel?.cardData && (<CardEdit sidePanelData={sidePanel} actions={cardActions} />)}
     </Wrapper>
   );
 }
