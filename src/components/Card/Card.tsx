@@ -25,7 +25,7 @@ function Card({
 }: Props) {
   return (
     <CardWrap onClick={() => {
-      actions.edit(cardPath, card);
+      actions.viewCard(cardPath, card);
     }}
     >
       <CardHead>

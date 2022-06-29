@@ -35,7 +35,7 @@ function Column({ actions, column, columnPath }: Props) {
             <Card
               key={card.id}
               card={card}
-              actions={actions.card}
+              actions={actions.cardActions}
               cardPath={{
                 ...columnPath,
                 viaId: [...columnPath.viaId, card.id],

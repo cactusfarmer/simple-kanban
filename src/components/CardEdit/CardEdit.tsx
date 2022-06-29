@@ -24,10 +24,10 @@ type Props = {
   actions: CardActions
 };
 
-function CardEdit({ card, actions }: Props) {
+function CardEdit({ card, actions : {editCard} }: Props) {
   const handleUpdate = (e: any) => {
     e.preventDefault();
-    actions.add();
+    editCard();
   };
 
   return (

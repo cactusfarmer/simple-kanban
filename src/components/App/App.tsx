@@ -19,45 +19,47 @@ function App() {
   const [sidePanel, setSidePanel] = useState(panel);
   const [boardPath, setChosenBoardById] = useState({ viaId: [1], viaIndex: [0] } as BoardPath);
 
-  const actions: KanbanActions = {
-    card: {
-      edit: (pathToCard: BoardPath, card: CardData) => {
+  const kanbanActions: KanbanActions = {
+    cardActions: {
+      editCard: () => console.log("edit"),
+      viewCard: (pathToCard: BoardPath, card: CardData) => {
         console.log(pathToCard);
         setSidePanel({
           data: card,
         });
         updateBoards(boardsData);
       },
-      move: (
+      moveCard: (
         currentPath: number[],
         newPath: number[],
       ) => {
         console.log(currentPath, newPath);
       },
-      add: (columnPath: number[]) => {
+      addCard: (columnPath: number[]) => {
         console.log(columnPath);
       },
-      delete: (cardPath: number[]) => {
+      deleteCard: (cardPath: number[]) => {
         console.log(cardPath);
       },
     },
-    board: {
-      add: () => console.log('Add board'),
-      view: (path: BoardPath) => {
+    boardActions: {
+      addBoard: () => console.log('Add board'),
+      viewBoard: (path: BoardPath) => {
         setSidePanel({});
         setChosenBoardById(path);
       },
     },
-    column: {},
+    columnActions: {},
   };
 
   const { boards } = boardsData;
+  const {cardActions, boardActions} = kanbanActions
 
   return (
     <Wrapper>
-      <Nav boards={boards} actions={actions.board} />
-      <Wall boards={boards} actions={actions} boardPath={boardPath} />
-      {sidePanel?.data && (<CardEdit card={sidePanel.data} actions={actions.card} />)}
+      <Nav boards={boards} actions={boardActions} />
+      <Wall boards={boards} actions={kanbanActions} boardPath={boardPath} />
+      {sidePanel?.data && (<CardEdit card={sidePanel.data} actions={cardActions} />)}
     </Wrapper>
   );
 }

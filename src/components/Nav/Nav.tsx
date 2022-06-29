@@ -20,7 +20,7 @@ const NavBody = styled.ul``;
 const NavHead = styled.h2`
 padding-left: 16px`;
 
-function Nav({ boards, actions }: Props) {
+function Nav({ boards, actions: { viewBoard } }: Props) {
   return (
     <NavWrap>
       <NavHead>
@@ -29,7 +29,7 @@ function Nav({ boards, actions }: Props) {
       <NavBody>
         {boards?.map(({ name, id }, index) => (
           <div key={id}>
-            <button type="button" onClick={() => { actions.view({ viaId: [id], viaIndex: [index] }); }}>
+            <button type="button" onClick={() => { viewBoard({ viaId: [id], viaIndex: [index] }); }}>
               {name}
             </button>
           </div>
