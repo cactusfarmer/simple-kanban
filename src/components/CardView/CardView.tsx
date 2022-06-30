@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { CardData } from '../../types/card_data';
-import { CardActions } from '../../types/kanban_actions';
+import { CardEvents } from '../../types/kanban_events';
 import { SidePanelData } from '../../types/side_panel_data';
 
-const CardEditWrap = styled.div`
+const CardViewWrap = styled.div`
 position: -webkit-sticky;
 position: sticky;
 z-index: 1500;
@@ -18,15 +18,15 @@ width: 10vw;
 border-left: 1px solid #999);
 `;
 
-const CardEditHead = styled.h2`
+const CardViewHead = styled.h2`
 padding-left: 16px`;
 
 type Props = {
   sidePanelData: SidePanelData
-  actions: CardActions
+  events: CardEvents
 };
 
-function CardEdit({ sidePanelData, actions: { editCard } }: Props) {
+function CardView({ sidePanelData, events: { editCard } }: Props) {
   let info = sidePanelData.cardData?.info;
 
   function handleFormSubmit(e: any) {
@@ -36,20 +36,21 @@ function CardEdit({ sidePanelData, actions: { editCard } }: Props) {
     } as CardData);
   }
 
-  function handleTextAreaChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+  function handleTextAreaChange(e: any) {
+    console.log(e.target.value);
     info = e.target.value;
     console.log('state:', info);
   }
 
   return (
-    <CardEditWrap>
-      <CardEditHead>Edit card...</CardEditHead>
+    <CardViewWrap>
+      <CardViewHead>Edit card...</CardViewHead>
       <form action="" onSubmit={handleFormSubmit}>
         <textarea onChange={handleTextAreaChange} value={sidePanelData.cardData?.info} id="info" name="info" />
         <button type="submit">Update...</button>
       </form>
-    </CardEditWrap>
+    </CardViewWrap>
   );
 }
 
-export default CardEdit;
+export default CardView;

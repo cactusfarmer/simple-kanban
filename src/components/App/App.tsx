@@ -3,8 +3,8 @@ import { useState } from 'react';
 import Wall from '../Wall/Wall';
 import data from '../../data/boards.json';
 import Nav from '../Nav/Nav';
-import { KanbanActions } from '../../types/kanban_actions';
-import CardEdit from '../CardEdit/CardEdit';
+import { KanbanEvents } from '../../types/kanban_events';
+import CardView from '../CardView/CardView';
 import { CardData } from '../../types/card_data';
 import { BoardPath } from '../../types/board_path';
 import { SidePanelData } from '../../types/side_panel_data';
@@ -22,8 +22,8 @@ function App() {
 
   console.log(updateBoards.length);
 
-  const kanbanActions: KanbanActions = {
-    cardActions: {
+  const kanbanEvents: KanbanEvents = {
+    cardEvents: {
       editCard: (card: CardData) => {
         console.log('editCard', card);
         setSidePanel({ cardData: undefined });
@@ -47,26 +47,25 @@ function App() {
         console.log(cardPath);
       },
     },
-    boardActions: {
+    boardEvents: {
       addBoard: () => console.log('Add board'),
       viewBoard: (path: BoardPath) => {
         console.log('viewBoard', path);
         setSidePanel({ cardData: undefined });
         setChosenBoardById(path);
       },
-      hideSidePanel: () => { console.log('hideSidePanel'); },
     },
-    columnActions: {},
+    columnEvents: {},
   };
 
   const { boards } = boardsData;
-  const { cardActions, boardActions } = kanbanActions;
+  const { cardEvents, boardEvents } = kanbanEvents;
 
   return (
     <Wrapper>
-      <Nav boards={boards} actions={boardActions} />
-      <Wall boards={boards} actions={kanbanActions} boardPath={boardPath} />
-      {sidePanel?.cardData && (<CardEdit sidePanelData={sidePanel} actions={cardActions} />)}
+      <Nav boards={boards} events={boardEvents} />
+      <Wall boards={boards} events={kanbanEvents} boardPath={boardPath} />
+      {sidePanel?.cardData && (<CardView sidePanelData={sidePanel} events={cardEvents} />)}
     </Wrapper>
   );
 }

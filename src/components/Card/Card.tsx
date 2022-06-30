@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { CardActions } from '../../types/kanban_actions';
+import { CardEvents } from '../../types/kanban_events';
 import { CardData } from '../../types/card_data';
 import { BoardPath } from '../../types/board_path';
 
 type Props = {
   card: CardData
-  actions: CardActions
+  events: CardEvents
   cardPath: BoardPath
 };
 
@@ -21,11 +21,11 @@ const CardHead = styled.h3``;
 const CardBody = styled.div``;
 
 function Card({
-  actions, card, cardPath,
+  events: { viewCard }, card, cardPath,
 }: Props) {
   return (
     <CardWrap onClick={() => {
-      actions.viewCard(cardPath, card);
+      viewCard(cardPath, card);
     }}
     >
       <CardHead>

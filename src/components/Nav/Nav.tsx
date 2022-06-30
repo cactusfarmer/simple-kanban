@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
-import { BoardActions } from '../../types/kanban_actions';
+import { BoardEvents } from '../../types/kanban_events';
 
 type Props = {
   boards: BoardData[]
-  actions: BoardActions
+  events: BoardEvents
 };
 const NavWrap = styled.div`
                     background-color: #efefef;
@@ -20,7 +20,7 @@ const NavBody = styled.ul``;
 const NavHead = styled.h2`
 padding-left: 16px`;
 
-function Nav({ boards, actions: { viewBoard } }: Props) {
+function Nav({ boards, events: { viewBoard } }: Props) {
   return (
     <NavWrap>
       <NavHead>

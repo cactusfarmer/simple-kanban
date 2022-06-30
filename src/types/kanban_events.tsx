@@ -1,19 +1,18 @@
 import { CardData } from "./card_data";
 import { BoardPath } from "./board_path";
 
-export type KanbanActions = {
-    cardActions: CardActions
-    boardActions: BoardActions
-    columnActions: ColumnActions
+export type KanbanEvents = {
+    cardEvents: CardEvents
+    boardEvents: BoardEvents
+    columnEvents: ColumnEvents
 };
 
-export type BoardActions = {
+export type BoardEvents = {
     addBoard: Function,
     viewBoard: (path: BoardPath) => void
-    hideSidePanel: Function
 }
 
-export type CardActions = {
+export type CardEvents = {
     viewCard: (pathToCard: BoardPath, card: CardData) => void,
     editCard: Function
     moveCard: Function,
@@ -21,4 +20,4 @@ export type CardActions = {
     deleteCard: Function
 }
 
-export type ColumnActions = {}
+export type ColumnEvents = {}
