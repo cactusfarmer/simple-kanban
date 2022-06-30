@@ -28,13 +28,13 @@ type Props = {
 
 function CardView({ sidePanelData, events: { editCard } }: Props) {
   console.log('initial data', sidePanelData?.cardData?.info);
-  const [formState, setFormData] = useState(sidePanelData.cardData?.info);
+  const [formState, setFormData] = useState(sidePanelData.cardData);
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
     console.log('formState', formState);
     editCard({
-      ...sidePanelData.cardData, formState,
+      ...sidePanelData.cardData, info: formState?.info,
     });
   };
 
@@ -47,7 +47,7 @@ function CardView({ sidePanelData, events: { editCard } }: Props) {
     <CardViewWrap>
       <CardViewHead>Edit card...</CardViewHead>
       <form action="" onSubmit={handleFormSubmit} key={sidePanelData.cardData?.info}>
-        <input type="textarea" onChange={handleTextAreaChange} defaultValue={formState} id="info" name="info" />
+        <input type="textarea" onChange={handleTextAreaChange} defaultValue={formState?.info} id="info" name="info" />
         <button type="submit">Update...</button>
       </form>
     </CardViewWrap>
