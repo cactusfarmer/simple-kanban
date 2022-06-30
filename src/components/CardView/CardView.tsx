@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { CardData } from '../../types/card_data';
+// import { CardData } from '../../types/card_data';
 import { CardEvents } from '../../types/kanban_events';
 import { SidePanelData } from '../../types/side_panel_data';
 
@@ -27,26 +27,27 @@ type Props = {
 };
 
 function CardView({ sidePanelData, events: { editCard } }: Props) {
-  let info = sidePanelData.cardData?.info;
+  console.log('initial data', sidePanelData?.cardData?.info);
+  const [formState, setFormData] = useState(sidePanelData.cardData?.info);
 
-  function handleFormSubmit(e: any) {
+  const handleFormSubmit = (e: any) => {
     e.preventDefault();
+    console.log('formState', formState);
     editCard({
-      ...sidePanelData.cardData, info,
-    } as CardData);
-  }
+      ...sidePanelData.cardData, formState,
+    });
+  };
 
-  function handleTextAreaChange(e: any) {
-    console.log(e.target.value);
-    info = e.target.value;
-    console.log('state:', info);
-  }
+  const handleTextAreaChange = (e: any) => {
+    console.log('changeState', e.target.value);
+    setFormData(e.target.value);
+  };
 
   return (
     <CardViewWrap>
       <CardViewHead>Edit card...</CardViewHead>
-      <form action="" onSubmit={handleFormSubmit}>
-        <textarea onChange={handleTextAreaChange} value={sidePanelData.cardData?.info} id="info" name="info" />
+      <form action="" onSubmit={handleFormSubmit} key={sidePanelData.cardData?.info}>
+        <input type="textarea" onChange={handleTextAreaChange} defaultValue={formState} id="info" name="info" />
         <button type="submit">Update...</button>
       </form>
     </CardViewWrap>
