@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { CardEvents } from '../../types/kanban_events';
 import { CardData } from '../../types/card_data';
-import { BoardPath } from '../../types/board_path';
+import { CardPathById, KanbanPathToItem } from '../../types/kanban_paths';
+import { getPathObject } from '../../library/helpers';
 
 type Props = {
   card: CardData
   events: CardEvents
-  cardPath: BoardPath
+  cardPath: KanbanPathToItem
 };
 
 const CardWrap = styled.div`
@@ -23,9 +24,10 @@ const CardBody = styled.div``;
 function Card({
   events: { viewCard }, card, cardPath,
 }: Props) {
+  const path = getPathObject(cardPath.viaId) as CardPathById;
   return (
     <CardWrap onClick={() => {
-      viewCard(cardPath, card);
+      viewCard({ card, path });
     }}
     >
       <CardHead>

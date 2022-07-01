@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { KanbanEvents } from '../../types/kanban_events';
 import { ColumnData } from '../../types/column_data';
-import { BoardPath } from '../../types/board_path';
+import { KanbanPathToItem } from '../../types/kanban_paths';
 import Card from '../Card/Card';
 
 type Props = {
   column: ColumnData
   events: KanbanEvents
-  columnPath: BoardPath
+  columnPath: KanbanPathToItem
 };
 
 const ColumnWrap = styled.div`

@@ -1,6 +1,6 @@
-import { CardData } from './card_data';
+import { CardWithPath } from './card_data_with_path';
 
 export type SidePanelData = {
-  cardData: CardData | undefined
-  visible: Boolean
+  panelData: CardWithPath | undefined
+  show: Boolean
 };

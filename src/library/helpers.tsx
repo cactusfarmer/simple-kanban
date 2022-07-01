@@ -1,18 +1,12 @@
-import { diffString } from 'json-diff';
 import util from 'util';
 import { BoardData } from '../types/board_data';
 import { CardData } from '../types/card_data';
 import { ColumnData } from '../types/column_data';
 
-const separator = '\n-------------------------------------\n';
-
-const logDiff = (message: string, data: object, data2: object) => {
-  console.log(`${separator}${message}:${separator}`, diffString(data, data2, { full: true }));
-};
-
 const logObj = (obj: object) => {
   console.log(util.inspect(obj, { showHidden: false, depth: null, colors: true }));
 };
+/** end */
 
 const getAllOtherBoards = (
   boards: BoardData[],
@@ -47,14 +41,19 @@ const getCard = (cards: CardData[], cardId: number) => {
   return card;
 };
 
-/* const incrementId = (obj: Identifyable): number => {
-    if (obj.length === 0) {
-        return 1
-    } else {
-        return Math.max(...obj.map(o => o.id)) + 1
-    }
-} */
+const getPathObject = (path: number[]) => {
+  const propertyNames = ['boardId', 'columnId', 'cardId'];
+
+  const pathObject = path.reduce((obj, c, i) => {
+    const o = obj; // https://eslint.org/docs/latest/rules/no-param-reassign
+    o[propertyNames[i]] = c;
+    return o;
+  }, {} as any);
+
+  return pathObject;
+};
 
 export {
-  logDiff, logObj, getAllOtherBoards, getOtherColumns, getOtherCards, getBoard, getColumn, getCard,
+  getPathObject, logObj, getAllOtherBoards,
+  getOtherColumns, getOtherCards, getBoard, getColumn, getCard,
 };

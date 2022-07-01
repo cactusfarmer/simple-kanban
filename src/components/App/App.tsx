@@ -5,9 +5,9 @@ import data from '../../data/boards.json';
 import Nav from '../Nav/Nav';
 import { KanbanEvents } from '../../types/kanban_events';
 import CardView from '../CardView/CardView';
-import { CardData } from '../../types/card_data';
-import { BoardPath } from '../../types/board_path';
+import { KanbanPathToItem } from '../../types/kanban_paths';
 import { SidePanelData } from '../../types/side_panel_data';
+import { CardWithPath } from '../../types/card_data_with_path';
 import Queries from '../../library/queries';
 
 const Wrapper = styled.div`
@@ -19,23 +19,24 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [boardsData, updateBoards] = useState(data);
   const [sidePanel, setSidePanel] = useState(
-    { cardData: undefined, visible: false } as SidePanelData,
+    { panelData: undefined, show: false } as SidePanelData,
   );
 
   const [boardPath, setChosenBoardById] = useState(
-    { viaId: [1], viaIndex: [0] } as BoardPath,
+    { viaId: [1], viaIndex: [0] } as KanbanPathToItem,
   );
 
   const kanbanEvents: KanbanEvents = {
     cardEvents: {
-      editCard: (card: CardData) => {
-        Queries.editCard(boardsData, card);
-        setSidePanel({ cardData: undefined, visible: false });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      updateCard: (cardWithPath : CardWithPath) => {
+        const update = Queries.editCard(boardsData, cardWithPath);
+        console.log(update);
+        setSidePanel({ panelData: undefined, show: false });
       },
-      viewCard: (pathToCard: BoardPath, card: CardData) => {
-        console.log('viewCard', pathToCard, card);
+      viewCard: (cardWithPath : CardWithPath) => {
         setSidePanel({
-          cardData: card, visible: true,
+          panelData: cardWithPath, show: true,
         });
       },
       moveCard: (
@@ -53,9 +54,9 @@ function App() {
     },
     boardEvents: {
       addBoard: () => console.log('Add board'),
-      viewBoard: (path: BoardPath) => {
+      viewBoard: (path: KanbanPathToItem) => {
         console.log('viewBoard', path);
-        setSidePanel({ cardData: undefined, visible: false });
+        setSidePanel({ panelData: undefined, show: false });
         setChosenBoardById(path);
       },
     },
@@ -64,13 +65,12 @@ function App() {
 
   const { boards } = boardsData;
   const { cardEvents, boardEvents } = kanbanEvents;
-  const { cardData, visible } = sidePanel;
   return (
     <Wrapper>
       <Nav boards={boards} events={boardEvents} />
       <Wall boards={boards} events={kanbanEvents} boardPath={boardPath} />
-      {cardData !== undefined && visible
-      && (<CardView card={cardData} events={cardEvents} />)}
+      {sidePanel.panelData !== undefined && sidePanel.show
+        && (<CardView data={sidePanel.panelData} events={cardEvents} />)}
     </Wrapper>
   );
 }

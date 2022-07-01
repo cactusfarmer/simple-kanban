@@ -1,5 +1,5 @@
-import { CardData } from './card_data';
-import { BoardPath } from './board_path';
+import { CardWithPath } from './card_data_with_path';
+import { KanbanPathToItem } from './kanban_paths';
 
 export type KanbanEvents = {
   cardEvents: CardEvents
@@ -9,12 +9,12 @@ export type KanbanEvents = {
 
 export type BoardEvents = {
   addBoard: Function,
-  viewBoard: (path: BoardPath) => void
+  viewBoard: (path: KanbanPathToItem) => void
 };
 
 export type CardEvents = {
-  viewCard: (pathToCard: BoardPath, card: CardData) => void,
-  editCard: Function
+  viewCard: (cardWithPath: CardWithPath) => void,
+  updateCard: (cardWithPath: CardWithPath) => void,
   moveCard: Function,
   addCard: Function,
   deleteCard: Function

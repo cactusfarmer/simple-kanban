@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { CardData } from '../../types/card_data';
 import { CardEvents } from '../../types/kanban_events';
+import { CardWithPath } from '../../types/card_data_with_path';
 
 const CardViewWrap = styled.div`
 position: -webkit-sticky;
@@ -20,18 +20,18 @@ const CardViewHead = styled.h2`
 padding-left: 16px`;
 
 type Props = {
-  card: CardData
+  data: CardWithPath
   events: CardEvents
 };
 
-function CardView({ card, events: { editCard } }: Props) {
-  console.log('initial data', card.info);
+function CardView({ data, events: { updateCard } }: Props) {
+  console.log('initial data', data.card.info);
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
     const info = e.target.elements.info.value;
-    editCard({
-      ...card, info,
+    updateCard({
+      ...data, card: { ...info },
     });
   };
 
@@ -43,8 +43,8 @@ function CardView({ card, events: { editCard } }: Props) {
   return (
     <CardViewWrap>
       <CardViewHead>Edit card...</CardViewHead>
-      <form action="" onSubmit={handleFormSubmit} key={card.info}>
-        <input type="textarea" onChange={handleTextAreaChange} defaultValue={card.info} id="info" name="info" />
+      <form action="" onSubmit={handleFormSubmit} key={data.card.info}>
+        <input type="textarea" onChange={handleTextAreaChange} defaultValue={data.card.info} id="info" name="info" />
         <button type="submit">Update...</button>
       </form>
     </CardViewWrap>
