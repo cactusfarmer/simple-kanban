@@ -9,7 +9,8 @@ Simple react project to model a simple kanban
 - [x] multiple boards
 - [x] locate by index or id
 - [x] sketched out basic CRUD functions for boards, columns and cards
-- [x] build and edit basics for card view /edit
+- [x] Cards are editable now
+- [o] Fix issue with initial display, will have to use by id...
 - [o] add all fields to card view edit
 - [o] add all crud functions
 - [o] create other events on board (add colum add board etc.)
