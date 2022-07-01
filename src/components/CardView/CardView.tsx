@@ -31,7 +31,7 @@ function CardView({ data, events: { updateCard } }: Props) {
     e.preventDefault();
     const info = e.target.elements.info.value;
     updateCard({
-      ...data, card: { ...info },
+      ...data, card: { ...data.card, info },
     });
   };
 

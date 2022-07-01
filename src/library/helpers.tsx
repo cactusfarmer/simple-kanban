@@ -8,7 +8,7 @@ const logObj = (obj: object) => {
 };
 /** end */
 
-const getAllOtherBoards = (
+const getOtherBoards = (
   boards: BoardData[],
   boardId: number,
 ) => boards.filter(({ id }) => id !== boardId);
@@ -54,6 +54,6 @@ const getPathObject = (path: number[]) => {
 };
 
 export {
-  getPathObject, logObj, getAllOtherBoards,
+  getPathObject, logObj, getOtherBoards,
   getOtherColumns, getOtherCards, getBoard, getColumn, getCard,
 };

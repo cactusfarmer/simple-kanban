@@ -1,6 +1,9 @@
 import { BoardData } from '../types/board_data';
 import { WallData } from '../types/wall_data';
-import { logObj } from './helpers';
+import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getBoard, getCard, getColumn, getOtherBoards, getOtherCards, getOtherColumns, logObj,
+} from './helpers';
 import { CardWithPath } from '../types/card_data_with_path';
 
 export default class Queries {
@@ -14,21 +17,27 @@ export default class Queries {
     return update;
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  /* public static getPathType(path: number[], pathType: string) {
-    const parts: string[] = [];
-    if (pathType === 'byId') {
-      parts.push('boardId', 'columnId', 'CardId');
-    } else {
-      parts.push('boardIndex', 'columnIndex', 'cardIndex');
-    }
-  } */
+  public static editCard = (data: WallData, { card, path }: CardWithPath) : WallData => {
+    const { boards } = data;
+    const boardToEdit = getBoard(boards, path.boardId);
+    const otherBoards = getOtherBoards(boards, path.boardId);
+    const columnToEdit = getColumn(boardToEdit.columns, path.columnId);
+    const otherColumns = getOtherColumns(boardToEdit.columns, path.columnId);
+    const otherCards = getOtherCards(columnToEdit.cards, path.cardId);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public static editCard = (data: WallData, { card, path }: CardWithPath) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const update : WallData = {
+      // ...data,
+      boards: [...otherBoards,
+        {
+          ...boardToEdit,
+          columns: [
+            ...otherColumns,
+            ...[{
+              ...columnToEdit, cards: [...otherCards, card],
+            }],
+          ],
+        }],
+    };
+    return update;
   };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // public static editCard = (data: WallData, card: CardData) => null;
 }

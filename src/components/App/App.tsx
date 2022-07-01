@@ -8,7 +8,9 @@ import CardView from '../CardView/CardView';
 import { KanbanPathToItem } from '../../types/kanban_paths';
 import { SidePanelData } from '../../types/side_panel_data';
 import { CardWithPath } from '../../types/card_data_with_path';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Queries from '../../library/queries';
+import { WallData } from '../../types/wall_data';
 
 const Wrapper = styled.div`
     box-sizing: border-box;
@@ -17,7 +19,7 @@ const Wrapper = styled.div`
 
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [boardsData, updateBoards] = useState(data);
+  const [boardsData, updateBoards] = useState(data as WallData);
   const [sidePanel, setSidePanel] = useState(
     { panelData: undefined, show: false } as SidePanelData,
   );
@@ -29,12 +31,11 @@ function App() {
   const kanbanEvents: KanbanEvents = {
     cardEvents: {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      updateCard: (cardWithPath : CardWithPath) => {
-        const update = Queries.editCard(boardsData, cardWithPath);
-        console.log(update);
+      updateCard: (cardWithPath: CardWithPath) => {
+        updateBoards(Queries.editCard(boardsData, cardWithPath));
         setSidePanel({ panelData: undefined, show: false });
       },
-      viewCard: (cardWithPath : CardWithPath) => {
+      viewCard: (cardWithPath: CardWithPath) => {
         setSidePanel({
           panelData: cardWithPath, show: true,
         });
