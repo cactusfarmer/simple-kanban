@@ -33,7 +33,7 @@ function Board({
   board, events, boardPath,
 }: Props): any {
   const { columns } = board;
-
+  console.log(columns);
   return (
     <BoardWrap>
       <BoardHead>

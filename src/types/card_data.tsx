@@ -1,6 +1,6 @@
-import { BoardItem } from '../interfaces/board_item';
-
-export type CardData = BoardItem & {
+export type CardData = {
+  id: number
+  name: string
   owner?: string
   info?: string,
 };

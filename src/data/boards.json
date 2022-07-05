@@ -1,12 +1,15 @@
 {
+    "sortchildrenby" : "id",
     "boards": [
         {
             "id": 1,
             "name": "Building work",
+            "sortchildrenby" : "id",
             "columns": [
                 {
                     "id": 1,
                     "name": "To do",
+                    "sortchildrenby" : "id",
                     "cards": [
                         {
                             "id": 1,
@@ -31,6 +34,7 @@
                 {
                     "id": 2,
                     "name": "Doing",
+                    "sortchildrenby" : "id",
                     "cards": [
                         {
                             "id": 1,
@@ -43,6 +47,7 @@
                 {
                     "id": 3,
                     "name": "Done",
+                    "sortchildrenby" : "id",
                     "cards": [
                         {
                             "id": 1,
@@ -63,10 +68,12 @@
         {
             "id": 2,
             "name": "Fitness",
+            "sortchildrenby" : "id",
             "columns": [
                 {
                     "id": 1,
                     "name": "To do",
+                    "sortchildrenby" : "id",
                     "cards": [
                         {
                             "id": 1,
@@ -79,6 +86,7 @@
                 {
                     "id": 2,
                     "name": "Doing",
+                    "sortchildrenby" : "id",
                     "cards": [
                         {
                             "id" :1,
@@ -91,6 +99,7 @@
                 {
                     "id": 3,
                     "name": "Done",
+                    "sortchildrenby" : "id",
                     "cards": [
                         {
                             "id": 1,
