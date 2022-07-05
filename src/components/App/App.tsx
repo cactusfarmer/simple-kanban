@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 const boardLoad = (walldata: WallData) : void => console.log(walldata);
 
 function App() {
-  boardLoad(data);
+  boardLoad(data as WallData);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [boardsData, updateBoards] = useState(data as WallData);
   const [sidePanel, setSidePanel] = useState(

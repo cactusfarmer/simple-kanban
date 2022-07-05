@@ -17,7 +17,9 @@ export default class Queries {
     const update = {
       ...data,
       boards:
-        [...data.boards, { name: board.name, columns: board.columns, id: 1 }],
+        [...data.boards, {
+          name: board.name, columns: board.columns, id: 1, sortchildrenby: 'id',
+        }],
     };
     logObj(update);
     return update;
@@ -32,7 +34,7 @@ export default class Queries {
     const otherCards = getOtherCards(columnToEdit.cards, path.cardId);
 
     const update : WallData = {
-      // ...data,
+      ...data,
       boards: [...otherBoards,
         {
           ...boardToEdit,
