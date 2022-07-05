@@ -5,8 +5,14 @@ import {
   getBoard, getCard, getColumn, getOtherBoards, getOtherCards, getOtherColumns, logObj,
 } from './helpers';
 import { CardWithPath } from '../types/card_data_with_path';
+import { BoardItem } from '../interfaces/board_item';
 
 export default class Queries {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public static sortItems = (
+    data: BoardItem[],
+  ) : BoardItem[] => data.sort((a, b) => a.id - b.id);
+
   public static addBoard = (data: WallData, board: BoardData): WallData => {
     const update = {
       ...data,

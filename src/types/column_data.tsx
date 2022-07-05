@@ -1,7 +1,6 @@
+import { BoardItem } from '../interfaces/board_item';
 import { CardData } from './card_data';
 
-export type ColumnData = {
-  id: number
-  name: string
+export type ColumnData = BoardItem & {
   cards: CardData[]
 };
