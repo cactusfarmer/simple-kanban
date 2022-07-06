@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { CardEvents } from '../../types/kanban_events';
 import { CardData } from '../../types/card_data';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { CardPath, CardPathById, KanbanPathToItem } from '../../types/kanban_paths';
+import {
+  CardPath, KanbanPathNames, KanbanPathToItem,
+} from '../../types/kanban_paths';
 import { getPathObject } from '../../library/helpers';
 
 type Props = {
@@ -25,10 +26,9 @@ const CardBody = styled.div``;
 function Card({
   events: { viewCard }, card, cardPath,
 }: Props) {
-  const propertyNames = ['boardId', 'columnId', 'cardId', 'boardIndex', 'columnIndex', 'cardIndex'];
   const path = getPathObject(
     [...cardPath.viaId, ...cardPath.viaIndex],
-    propertyNames,
+    KanbanPathNames,
   ) as CardPath;
   console.log(path);
   return (

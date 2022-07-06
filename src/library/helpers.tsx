@@ -71,13 +71,7 @@ const restoreCardsByIndex = (cards: CardData[], update: CardData, cardIndex: num
   return originalData;
 };
 
-// const
-
-const arrange = (oldData: BoardData[]) => (newData: BoardData[]) => [...oldData, ...newData];
-
 const getPathObject = (path: number[], propertyNames: string[]) => {
-  // const propertyNames = ['boardId', 'columnId', 'cardId', 'board'];
-
   const pathObject = path.reduce((obj, c, i) => {
     const o = obj; // https://eslint.org/docs/latest/rules/no-param-reassign
     o[propertyNames[i]] = c;
@@ -88,7 +82,7 @@ const getPathObject = (path: number[], propertyNames: string[]) => {
 };
 
 export {
-  getPathObject, logObj, getOtherBoards, restoreBoardsByIndex, arrange,
+  getPathObject, logObj, getOtherBoards, restoreBoardsByIndex,
   getOtherColumns, getOtherCards, getBoard,
   getBoardByIndex, getColumn, getColumnByIndex,
   restoreColumnsByIndex, getCard, restoreCardsByIndex,

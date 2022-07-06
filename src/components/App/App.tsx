@@ -8,7 +8,6 @@ import CardView from '../CardView/CardView';
 import { KanbanPathToItem } from '../../types/kanban_paths';
 import { SidePanelData } from '../../types/side_panel_data';
 import { CardWithPath } from '../../types/card_data_with_path';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Queries from '../../library/queries';
 import { WallData } from '../../types/wall_data';
 
@@ -17,11 +16,7 @@ const Wrapper = styled.div`
     display: flex;
     min-height: 100%;`;
 
-// const boardLoad = (walldata: WallData) : void => console.log(walldata);
-
 function App() {
-  // boardLoad(data as WallData);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [boardsData, updateBoards] = useState(data as WallData);
   const [sidePanel, setSidePanel] = useState(
     { panelData: undefined, show: false } as SidePanelData,
@@ -33,7 +28,6 @@ function App() {
 
   const kanbanEvents: KanbanEvents = {
     cardEvents: {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       updateCard: (cardWithPath: CardWithPath) => {
         updateBoards(Queries.editCard(boardsData, cardWithPath));
         setSidePanel({ panelData: undefined, show: false });
