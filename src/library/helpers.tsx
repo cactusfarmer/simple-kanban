@@ -29,10 +29,34 @@ const getBoard = (boards: BoardData[], boardId: number) => {
   return board;
 };
 
+const getBoardByIndex = (boards: BoardData[], boardIndex: number) => {
+  const board = boards[boardIndex];
+  if (board === undefined) throw Error('No board at this index');
+  return board;
+};
+
 const getColumn = (columns: ColumnData[], columnId: number) => {
   const column = columns.find(({ id }) => id === columnId);
   if (column === undefined) throw Error('No column of this id');
   return column;
+};
+
+const getColumnByIndex = (columns: ColumnData[], columnIndex: number) => {
+  const column = columns[columnIndex];
+  if (column === undefined) throw Error('No column at this index');
+  return column;
+};
+
+const restoreBoardsByIndex = (boards: BoardData[], update: BoardData, boardIndex: number) => {
+  const originalData = boards;
+  originalData[boardIndex] = update;
+  return originalData;
+};
+
+const restoreColumnsByIndex = (columns: ColumnData[], update: ColumnData, columnIndex: number) => {
+  const originalData = columns;
+  originalData[columnIndex] = update;
+  return originalData;
 };
 
 const getCard = (cards: CardData[], cardId: number) => {
@@ -41,8 +65,18 @@ const getCard = (cards: CardData[], cardId: number) => {
   return card;
 };
 
-const getPathObject = (path: number[]) => {
-  const propertyNames = ['boardId', 'columnId', 'cardId'];
+const restoreCardsByIndex = (cards: CardData[], update: CardData, cardIndex: number) => {
+  const originalData = cards;
+  originalData[cardIndex] = update;
+  return originalData;
+};
+
+// const
+
+const arrange = (oldData: BoardData[]) => (newData: BoardData[]) => [...oldData, ...newData];
+
+const getPathObject = (path: number[], propertyNames: string[]) => {
+  // const propertyNames = ['boardId', 'columnId', 'cardId', 'board'];
 
   const pathObject = path.reduce((obj, c, i) => {
     const o = obj; // https://eslint.org/docs/latest/rules/no-param-reassign
@@ -54,6 +88,8 @@ const getPathObject = (path: number[]) => {
 };
 
 export {
-  getPathObject, logObj, getOtherBoards,
-  getOtherColumns, getOtherCards, getBoard, getColumn, getCard,
+  getPathObject, logObj, getOtherBoards, restoreBoardsByIndex, arrange,
+  getOtherColumns, getOtherCards, getBoard,
+  getBoardByIndex, getColumn, getColumnByIndex,
+  restoreColumnsByIndex, getCard, restoreCardsByIndex,
 };

@@ -7,7 +7,15 @@ export type BoardPathById = { boardId: number };
 // export type BoardPathByIndex = { boardIndex: number };
 
 export type CardPathById = { boardId: number, columnId: number, cardId: number };
-// export type CardPathByIndex = { boardIndex: number, columnIndex: number, cardIndex: number };
+
+export type CardPath = {
+  boardIndex: number,
+  columnIndex: number,
+  cardIndex: number,
+  boardId: number,
+  columnId: number,
+  cardId: number
+};
 
 export type ColumnPathById = { boardId: number, columnId: number };
 // export type ColumnPathByIndex = { boardIndex: number, columnIndex: number };
