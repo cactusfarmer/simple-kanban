@@ -1,8 +1,8 @@
 import { BoardData } from '../types/board_data';
 import { WallData } from '../types/wall_data';
 import {
-  getBoardByIndex, getColumnByIndex, logObj, restoreBoardsByIndex,
-  restoreCardsByIndex, restoreColumnsByIndex,
+  getBoardByIndex, getColumnByIndex, logObj, editColumnsPreseveColumnIndexes,
+  editCardsPreserveCardIndexes, editBoardsPreserveBoardIndexes,
 } from './helpers';
 import { CardWithPath } from '../types/card_data_with_path';
 
@@ -19,29 +19,38 @@ export default class Queries {
     return update;
   };
 
-  public static editCard = (data: WallData, { card, path }: CardWithPath) : WallData => {
-    const { boards } = data;
-    const boardToEdit = getBoardByIndex(boards, path.boardIndex);
-    const columnToEdit = getColumnByIndex(boardToEdit.columns, path.columnIndex);
-    const { cards } = columnToEdit;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public static addCard = (data:WallData, column : object) => null;
 
-    const updatedCards = restoreCardsByIndex(cards, card, path.cardIndex);
-    const updatedColumn = { ...columnToEdit, cards: updatedCards };
-    const updatedColumns = restoreColumnsByIndex(
-      boardToEdit.columns,
-      updatedColumn,
-      path.columnIndex,
+  public static editCard = (
+    data: WallData,
+    { card, path: { boardIndex, columnIndex, cardIndex } }: CardWithPath,
+  ) : WallData => {
+    const { boards } = data;
+    const board = getBoardByIndex(boards, boardIndex);
+
+    const { columns } = board;
+    const column = getColumnByIndex(columns, columnIndex);
+
+    const { cards } = column;
+    const editedCards = editCardsPreserveCardIndexes(cards, card, cardIndex);
+
+    const editedColumn = { ...column, cards: editedCards };
+    const editedColumns = editColumnsPreseveColumnIndexes(
+      columns,
+      editedColumn,
+      columnIndex,
     );
-    const updatedBoard = {
-      ...boardToEdit,
-      columns: updatedColumns,
+    const editedBoard = {
+      ...board,
+      columns: editedColumns,
     };
 
-    const updatedBoards = restoreBoardsByIndex(boards, updatedBoard, path.boardIndex);
+    const editedBoards = editBoardsPreserveBoardIndexes(boards, editedBoard, boardIndex);
 
     const update : WallData = {
       ...data,
-      boards: updatedBoards,
+      boards: editedBoards,
     };
     return update;
   };

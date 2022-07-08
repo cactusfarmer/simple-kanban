@@ -16,8 +16,9 @@ export type CardEvents = {
   viewCard: (cardWithPath: CardWithPath) => void,
   updateCard: (cardWithPath: CardWithPath) => void,
   moveCard: Function,
-  addCard: Function,
   deleteCard: Function
 };
 
-export type ColumnEvents = {};
+export type ColumnEvents = {
+  addCard: Function
+};

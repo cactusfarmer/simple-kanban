@@ -47,13 +47,21 @@ const getColumnByIndex = (columns: ColumnData[], columnIndex: number) => {
   return column;
 };
 
-const restoreBoardsByIndex = (boards: BoardData[], update: BoardData, boardIndex: number) => {
+const editBoardsPreserveBoardIndexes = (
+  boards: BoardData[],
+  update: BoardData,
+  boardIndex: number,
+) => {
   const originalData = boards;
   originalData[boardIndex] = update;
   return originalData;
 };
 
-const restoreColumnsByIndex = (columns: ColumnData[], update: ColumnData, columnIndex: number) => {
+const editColumnsPreseveColumnIndexes = (
+  columns: ColumnData[],
+  update: ColumnData,
+  columnIndex: number,
+) => {
   const originalData = columns;
   originalData[columnIndex] = update;
   return originalData;
@@ -65,7 +73,7 @@ const getCard = (cards: CardData[], cardId: number) => {
   return card;
 };
 
-const restoreCardsByIndex = (cards: CardData[], update: CardData, cardIndex: number) => {
+const editCardsPreserveCardIndexes = (cards: CardData[], update: CardData, cardIndex: number) => {
   const originalData = cards;
   originalData[cardIndex] = update;
   return originalData;
@@ -81,9 +89,11 @@ const getPathObject = (path: number[], propertyNames: string[]) => {
   return pathObject;
 };
 
+const jsonEqual = (a : any, b : any) => JSON.stringify(a) === JSON.stringify(b);
+
 export {
-  getPathObject, logObj, getOtherBoards, restoreBoardsByIndex,
-  getOtherColumns, getOtherCards, getBoard,
+  getPathObject, logObj, getOtherBoards, editBoardsPreserveBoardIndexes,
+  getOtherColumns, getOtherCards, getBoard, jsonEqual,
   getBoardByIndex, getColumn, getColumnByIndex,
-  restoreColumnsByIndex, getCard, restoreCardsByIndex,
+  editColumnsPreseveColumnIndexes, getCard, editCardsPreserveCardIndexes,
 };

@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { CardEvents } from '../../types/kanban_events';
 import { CardData } from '../../types/card_data';
 import {
-  CardPath, KanbanPathNames, KanbanPathToItem,
+  CardPath, CardPathNames, KanbanPathToItem,
 } from '../../types/kanban_paths';
 import { getPathObject } from '../../library/helpers';
 
 type Props = {
   card: CardData
   events: CardEvents
-  cardPath: KanbanPathToItem
+  path: KanbanPathToItem
 };
 
 const CardWrap = styled.div`
@@ -24,16 +24,15 @@ const CardHead = styled.h3``;
 const CardBody = styled.div``;
 
 function Card({
-  events: { viewCard }, card, cardPath,
+  events: { viewCard }, card, path,
 }: Props) {
-  const path = getPathObject(
-    [...cardPath.viaId, ...cardPath.viaIndex],
-    KanbanPathNames,
+  const cardPath = getPathObject(
+    [...path.viaId, ...path.viaIndex],
+    CardPathNames,
   ) as CardPath;
-  console.log(path);
   return (
     <CardWrap onClick={() => {
-      viewCard({ card, path });
+      viewCard({ card, path: cardPath });
     }}
     >
       <CardHead>

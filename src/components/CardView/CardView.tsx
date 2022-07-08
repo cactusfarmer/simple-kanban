@@ -20,11 +20,11 @@ const CardViewHead = styled.h2`
 padding-left: 16px`;
 
 type Props = {
-  data: CardWithPath
+  forms: CardWithPath
   events: CardEvents
 };
 
-function CardView({ data, events: { updateCard } }: Props) {
+function CardView({ forms: data, events: { updateCard } }: Props) {
   console.log('initial data', data.card.info);
 
   const handleFormSubmit = (e: any) => {

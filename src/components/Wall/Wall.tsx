@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
+import { FormSetupData } from '../../types/form_setup_data';
 import { KanbanEvents } from '../../types/kanban_events';
 import { KanbanPathToItem } from '../../types/kanban_paths';
 import Board from '../Board/Board';
@@ -7,7 +8,8 @@ import Board from '../Board/Board';
 type Props = {
   events: KanbanEvents
   boards: BoardData[]
-  boardPath: KanbanPathToItem
+  path : KanbanPathToItem
+  forms: FormSetupData
 };
 
 const WallWrap = styled.main`
@@ -18,14 +20,15 @@ min-height: 100%;
 margin: 0 !important`;
 
 function Wall({
-  events, boards, boardPath, boardPath: { viaIndex: index },
+  events, boards, path, path: { viaIndex: index }, forms,
 }: Props) {
   return (
     <WallWrap>
       <Board
         board={boards[index[0]]}
         events={events}
-        boardPath={boardPath}
+        path={path}
+        forms={forms}
       />
     </WallWrap>
   );
