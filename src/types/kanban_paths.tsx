@@ -1,4 +1,4 @@
-export type KanbanPathToItem = { viaId: number[], viaIndex: number[], };
+export type PathToItem = { viaId: number[], viaIndex: number[], };
 
 export type BoardPathById = { boardId: number };
 // export type BoardPathByIndex = { boardIndex: number };

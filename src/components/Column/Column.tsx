@@ -2,16 +2,17 @@ import styled from 'styled-components';
 import equal from 'fast-deep-equal';
 import { KanbanEvents } from '../../types/kanban_events';
 import { ColumnData } from '../../types/column_data';
-import { ColumnPath, ColumnPathNames, KanbanPathToItem } from '../../types/kanban_paths';
+import { ColumnPath, ColumnPathNames, PathToItem } from '../../types/kanban_paths';
 import Card from '../Card/Card';
 import { getPathObject } from '../../library/helpers';
 import { FormSetupData } from '../../types/form_setup_data';
-import { ColumnTopFormData } from '../../types/column_top_form_data';
+import { AddCardSetUpData } from '../../types/add_card_set_up_data';
+import AddCard from '../AddCard/AddCard';
 
 type Props = {
   column: ColumnData
   events: KanbanEvents
-  path: KanbanPathToItem
+  path: PathToItem
   forms: FormSetupData
 };
 
@@ -26,7 +27,7 @@ padding: 8px`;
 
 const ColumnMain = styled.div``;
 
-const showForm = (columnTopFormData:ColumnTopFormData, columnPath: ColumnPath) : Boolean => {
+const showForm = (columnTopFormData:AddCardSetUpData, columnPath: ColumnPath) : Boolean => {
   if (columnTopFormData.show === false && columnTopFormData.pathData === undefined) return false;
   if (equal(columnTopFormData.pathData, columnPath)) {
     return true;
@@ -35,8 +36,8 @@ const showForm = (columnTopFormData:ColumnTopFormData, columnPath: ColumnPath) :
 };
 
 function Column({
-  events: { cardEvents, columnEvents: { addCard } },
-  column, path, forms: { columnTop: columnTopForm },
+  events: { cardEvents, cardEvents: { openAddCard } },
+  column, path, forms: { addCard: columnTopForm },
 }: Props) {
   const { cards } = column;
   const columnPath = getPathObject([...path.viaId, ...path.viaIndex], ColumnPathNames);
@@ -44,13 +45,16 @@ function Column({
   console.log(columnTopForm, path);
   return (
     <ColumnWrap>
+
       <ColumnHead>
         {column.name}
-        <button type="button" onClick={() => addCard(columnPath)}>
+        <button type="button" onClick={() => openAddCard(columnPath)}>
           +
         </button>
-        {showForm(columnTopForm, columnPath) && (<div>Small form here</div>)}
       </ColumnHead>
+      {showForm(columnTopForm, columnPath) && (
+      <AddCard events={cardEvents} />
+      )}
       <ColumnMain>
         {
           cards.map((card, index) => (

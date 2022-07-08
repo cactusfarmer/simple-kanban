@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { CardEvents } from '../../types/kanban_events';
 import { CardData } from '../../types/card_data';
 import {
-  CardPath, CardPathNames, KanbanPathToItem,
+  CardPath, CardPathNames, PathToItem,
 } from '../../types/kanban_paths';
 import { getPathObject } from '../../library/helpers';
 
 type Props = {
   card: CardData
   events: CardEvents
-  path: KanbanPathToItem
+  path: PathToItem
 };
 
 const CardWrap = styled.div`
@@ -24,7 +24,7 @@ const CardHead = styled.h3``;
 const CardBody = styled.div``;
 
 function Card({
-  events: { viewCard }, card, path,
+  events: { openEditCard: viewCard }, card, path,
 }: Props) {
   const cardPath = getPathObject(
     [...path.viaId, ...path.viaIndex],

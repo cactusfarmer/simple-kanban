@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
 import { FormSetupData } from '../../types/form_setup_data';
 import { KanbanEvents } from '../../types/kanban_events';
-import { KanbanPathToItem } from '../../types/kanban_paths';
+import { PathToItem } from '../../types/kanban_paths';
 import Board from '../Board/Board';
 
 type Props = {
   events: KanbanEvents
   boards: BoardData[]
-  path : KanbanPathToItem
+  path : PathToItem
   forms: FormSetupData
 };
 

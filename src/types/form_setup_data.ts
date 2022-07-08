@@ -1,7 +1,7 @@
-import { ColumnTopFormData } from './column_top_form_data';
-import { SidePanelData } from './side_panel_data';
+import { AddCardSetUpData } from './add_card_set_up_data';
+import { EditCardSetUpData } from './edit_card_set_up_data';
 
 export type FormSetupData = {
-  sidePanel: SidePanelData
-  columnTop: ColumnTopFormData,
+  editCard: EditCardSetUpData
+  addCard: AddCardSetUpData,
 };
