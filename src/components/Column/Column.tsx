@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import equal from 'fast-deep-equal';
 import { KanbanEvents } from '../../types/kanban_events';
 import { ColumnData } from '../../types/column_data';
 import { ColumnPath, ColumnPathNames, KanbanPathToItem } from '../../types/kanban_paths';
 import Card from '../Card/Card';
-import { getPathObject, jsonEqual } from '../../library/helpers';
+import { getPathObject } from '../../library/helpers';
 import { FormSetupData } from '../../types/form_setup_data';
 import { ColumnTopFormData } from '../../types/column_top_form_data';
 
@@ -27,7 +28,7 @@ const ColumnMain = styled.div``;
 
 const showForm = (columnTopFormData:ColumnTopFormData, columnPath: ColumnPath) : Boolean => {
   if (columnTopFormData.show === false && columnTopFormData.pathData === undefined) return false;
-  if (jsonEqual(columnTopFormData.pathData, columnPath)) {
+  if (equal(columnTopFormData.pathData, columnPath)) {
     return true;
   }
   return false;
