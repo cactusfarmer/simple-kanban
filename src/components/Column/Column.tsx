@@ -5,15 +5,15 @@ import { ColumnData } from '../../types/column_data';
 import { ColumnPath, ColumnPathNames, PathToItem } from '../../types/kanban_paths';
 import Card from '../Card/Card';
 import { getPathObject } from '../../library/helpers';
-import { FormSetupData } from '../../types/form_setup_data';
-import { AddCardSetUpData } from '../../types/add_card_set_up_data';
+import { FormsSetup } from '../../types/user_forms/forms_setup';
+import { AddCardFormSetUp } from '../../types/user_forms/add_card_form_set_up';
 import AddCard from '../AddCard/AddCard';
 
 type Props = {
   column: ColumnData
   events: KanbanEvents
-  path: PathToItem
-  forms: FormSetupData
+  currentPath: PathToItem
+  formSetUp: FormsSetup
 };
 
 const ColumnWrap = styled.div`
@@ -27,7 +27,7 @@ padding: 8px`;
 
 const ColumnMain = styled.div``;
 
-const showForm = (columnTopFormData:AddCardSetUpData, columnPath: ColumnPath) : Boolean => {
+const showAddCardForm = (columnTopFormData:AddCardFormSetUp, columnPath: ColumnPath) : Boolean => {
   if (columnTopFormData.show === false && columnTopFormData.pathData === undefined) return false;
   if (equal(columnTopFormData.pathData, columnPath)) {
     return true;
@@ -36,23 +36,24 @@ const showForm = (columnTopFormData:AddCardSetUpData, columnPath: ColumnPath) : 
 };
 
 function Column({
-  events: { cardEvents, cardEvents: { openAddCard } },
-  column, path, forms: { addCard: columnTopForm },
+  events: { cardEvents, cardEvents: { openAddCardForm } },
+  column, currentPath, formSetUp,
 }: Props) {
   const { cards } = column;
-  const columnPath = getPathObject([...path.viaId, ...path.viaIndex], ColumnPathNames);
+  const columnPath = getPathObject([...currentPath.viaId,
+    ...currentPath.viaIndex], ColumnPathNames);
 
-  console.log(columnTopForm, path);
+  console.log(formSetUp.addCardFormSetUp, currentPath);
   return (
     <ColumnWrap>
 
       <ColumnHead>
         {column.name}
-        <button type="button" onClick={() => openAddCard(columnPath)}>
+        <button type="button" onClick={() => openAddCardForm(columnPath)}>
           +
         </button>
       </ColumnHead>
-      {showForm(columnTopForm, columnPath) && (
+      {showAddCardForm(formSetUp.addCardFormSetUp, columnPath) && (
       <AddCard events={cardEvents} />
       )}
       <ColumnMain>
@@ -62,10 +63,10 @@ function Column({
               key={card.id}
               card={card}
               events={cardEvents}
-              path={{
-                ...path,
-                viaId: [...path.viaId, card.id],
-                viaIndex: [...path.viaIndex, index],
+              currentPath={{
+                ...currentPath,
+                viaId: [...currentPath.viaId, card.id],
+                viaIndex: [...currentPath.viaIndex, index],
               }}
             />
           ))

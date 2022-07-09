@@ -20,17 +20,17 @@ const EditCardHead = styled.h2`
 padding-left: 16px`;
 
 type Props = {
-  forms: CardWithPath
+  formSetUp: CardWithPath
   events: CardEvents
 };
 
-function EditCard({ forms: data, events: { editCard: updateCard } }: Props) {
+function EditCard({ formSetUp: data, events: { editCard } }: Props) {
   console.log('initial data', data.card.info);
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
     const info = e.target.elements.info.value;
-    updateCard({
+    editCard({
       ...data, card: { ...data.card, info },
     });
   };

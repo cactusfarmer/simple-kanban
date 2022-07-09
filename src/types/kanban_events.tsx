@@ -13,9 +13,9 @@ export type BoardEvents = {
 };
 
 export type CardEvents = {
-  openEditCard: (cardWithPath: CardWithPath) => void,
+  openEditCardForm: (cardWithPath: CardWithPath) => void,
   editCard: (cardWithPath: CardWithPath) => void,
-  openAddCard: Function
+  openAddCardForm: Function
   addCard: Function
   moveCard: Function,
   deleteCard: Function

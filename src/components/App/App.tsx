@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import Wall from '../Wall/Wall';
-import data from '../../data/boards.json';
-import Nav from '../Nav/Nav';
-import { KanbanEvents } from '../../types/kanban_events';
-import EditCard from '../EditCard/EditCard';
-import { ColumnPath, PathToItem } from '../../types/kanban_paths';
-import { EditCardSetUpData } from '../../types/edit_card_set_up_data';
+import { AddCardFormSetUp } from '../../types/user_forms/add_card_form_set_up';
 import { CardWithPath } from '../../types/card_data_with_path';
-import Queries from '../../library/queries';
+import { ColumnPath, PathToItem } from '../../types/kanban_paths';
+import { EditCardFormSetUp } from '../../types/user_forms/edit_card_form_set_up';
+import { FormsSetup } from '../../types/user_forms/forms_setup';
+import { KanbanEvents } from '../../types/kanban_events';
 import { WallData } from '../../types/wall_data';
-import { AddCardSetUpData } from '../../types/add_card_set_up_data';
-import { FormSetupData } from '../../types/form_setup_data';
+import data from '../../data/boards.json';
+import EditCard from '../EditCard/EditCard';
+import Nav from '../Nav/Nav';
+import Queries from '../../library/queries';
+import Wall from '../Wall/Wall';
 
 const Wrapper = styled.div`
     box-sizing: border-box;
@@ -21,11 +21,11 @@ const Wrapper = styled.div`
 function App() {
   const [boardsData, updateBoards] = useState(data as WallData);
 
-  const [formSetUp, setFormSetUp] = useState(
+  const [userFormsSetUp, setUpUserForms] = useState(
     {
-      editCard: { cardWithPath: undefined, show: false } as EditCardSetUpData,
-      addCard: { pathData: undefined, show: false } as AddCardSetUpData,
-    } as FormSetupData,
+      editCardFormSetUp: { cardWithPath: undefined, show: false } as EditCardFormSetUp,
+      addCardFormSetUp: { pathData: undefined, show: false } as AddCardFormSetUp,
+    } as FormsSetup,
   );
 
   const [path, setPath] = useState(
@@ -35,13 +35,13 @@ function App() {
   const kanbanEvents: KanbanEvents = {
     cardEvents: {
       addCard: () => { console.log('addCard'); },
-      openAddCard: (columnToAddTo: ColumnPath) => {
-        setFormSetUp({
-          editCard: {
+      openAddCardForm: (columnToAddTo: ColumnPath) => {
+        setUpUserForms({
+          editCardFormSetUp: {
             show: false,
             cardWithPath: undefined,
           },
-          addCard: {
+          addCardFormSetUp: {
             show: true,
             pathData: columnToAddTo,
           },
@@ -50,21 +50,21 @@ function App() {
       },
       editCard: (cardWithPath: CardWithPath) => {
         updateBoards(Queries.editCard(boardsData, cardWithPath));
-        setFormSetUp({
-          ...formSetUp,
-          editCard: {
+        setUpUserForms({
+          ...userFormsSetUp,
+          editCardFormSetUp: {
             cardWithPath: undefined,
             show: false,
           },
         });
       },
-      openEditCard: (cardWithPath: CardWithPath) => {
-        setFormSetUp({
-          addCard: {
+      openEditCardForm: (cardWithPath: CardWithPath) => {
+        setUpUserForms({
+          addCardFormSetUp: {
             show: false,
             pathData: undefined,
           },
-          editCard: {
+          editCardFormSetUp: {
             cardWithPath,
             show: true,
           },
@@ -84,9 +84,9 @@ function App() {
       addBoard: () => console.log('Add board'),
       viewBoard: (boardPath: PathToItem) => {
         console.log('viewBoard', boardPath);
-        setFormSetUp({
-          ...formSetUp,
-          editCard: {
+        setUpUserForms({
+          ...userFormsSetUp,
+          editCardFormSetUp: {
             cardWithPath: undefined,
             show: false,
           },
@@ -98,7 +98,7 @@ function App() {
 
     },
   };
-  const { editCard: sidePanel } = formSetUp;
+  const { editCardFormSetUp } = userFormsSetUp;
   const { boards } = boardsData;
   const { cardEvents, boardEvents } = kanbanEvents;
   return (
@@ -107,11 +107,11 @@ function App() {
       <Wall
         boards={boards}
         events={kanbanEvents}
-        path={path}
-        forms={formSetUp}
+        currentPath={path}
+        formSetUp={userFormsSetUp}
       />
-      {sidePanel.cardWithPath !== undefined && sidePanel.show
-        && (<EditCard forms={sidePanel.cardWithPath} events={cardEvents} />)}
+      {editCardFormSetUp.cardWithPath !== undefined && editCardFormSetUp.show
+        && (<EditCard formSetUp={editCardFormSetUp.cardWithPath} events={cardEvents} />)}
     </Wrapper>
   );
 }

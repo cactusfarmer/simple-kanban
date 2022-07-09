@@ -5,6 +5,8 @@ import {
   editCardsPreserveCardIndexes, editBoardsPreserveBoardIndexes,
 } from './helpers';
 import { CardWithPath } from '../types/card_data_with_path';
+import { ColumnPath } from '../types/kanban_paths';
+import { CardData } from '../types/card_data';
 
 export default class Queries {
   public static addBoard = (data: WallData, board: BoardData): WallData => {
@@ -20,7 +22,11 @@ export default class Queries {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public static addCard = (data:WallData, column : object) => null;
+  public static addCard = (data:WallData, path: ColumnPath, card: CardData) => {
+
+    // create a key here? might be worth adding uuid at this point??
+
+  };
 
   public static editCard = (
     data: WallData,

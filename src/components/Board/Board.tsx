@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
-import { FormSetupData } from '../../types/form_setup_data';
+import { FormsSetup } from '../../types/user_forms/forms_setup';
 import { KanbanEvents } from '../../types/kanban_events';
 import { PathToItem } from '../../types/kanban_paths';
 import Column from '../Column/Column';
@@ -8,8 +8,8 @@ import Column from '../Column/Column';
 type Props = {
   board: BoardData
   events: KanbanEvents
-  path: PathToItem // number[]
-  forms: FormSetupData
+  currentPath: PathToItem // number[]
+  formSetUp: FormsSetup
 };
 
 const BoardWrap = styled.div`
@@ -32,7 +32,7 @@ padding: 0 16px 0 16px;
 position: relative;`;
 
 function Board({
-  board, events, path, forms,
+  board, events, currentPath, formSetUp,
 }: Props): any {
   const { columns } = board;
   // console.log(columns);
@@ -48,13 +48,13 @@ function Board({
               key={column.id}
               events={events}
               column={column}
-              path={{
-                ...path,
+              currentPath={{
+                ...currentPath,
                 viaId:
-                [...path.viaId, column.id],
-                viaIndex: [...path.viaIndex, index],
+                [...currentPath.viaId, column.id],
+                viaIndex: [...currentPath.viaIndex, index],
               }}
-              forms={forms}
+              formSetUp={formSetUp}
             />
           ))
         }

@@ -21,15 +21,15 @@ function AddCard({ events } : Props) {
     console.log('add card');
   };
 
-  const handleChange = () => {
-    console.log('change');
+  const handleChange = (e: any) => {
+    console.log('change', e.target.value);
   };
 
   return (
     <AddCardWrap>
       <AddCardHead>
         <form onSubmit={handleFormSubmit}>
-          <input type="text" onChange={handleChange} />
+          <input type="text" onChange={handleChange} name="info" id="info" />
           <button type="submit">Add card</button>
         </form>
       </AddCardHead>

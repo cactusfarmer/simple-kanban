@@ -9,7 +9,7 @@ import { getPathObject } from '../../library/helpers';
 type Props = {
   card: CardData
   events: CardEvents
-  path: PathToItem
+  currentPath: PathToItem
 };
 
 const CardWrap = styled.div`
@@ -24,15 +24,15 @@ const CardHead = styled.h3``;
 const CardBody = styled.div``;
 
 function Card({
-  events: { openEditCard: viewCard }, card, path,
+  events: { openEditCardForm }, card, currentPath,
 }: Props) {
   const cardPath = getPathObject(
-    [...path.viaId, ...path.viaIndex],
+    [...currentPath.viaId, ...currentPath.viaIndex],
     CardPathNames,
   ) as CardPath;
   return (
     <CardWrap onClick={() => {
-      viewCard({ card, path: cardPath });
+      openEditCardForm({ card, path: cardPath });
     }}
     >
       <CardHead>
