@@ -32,7 +32,7 @@ function Card({
   ) as CardPath;
   return (
     <CardWrap onClick={() => {
-      openEditCardForm({ card, path: cardPath });
+      openEditCardForm({ cardData: card, cardPath });
     }}
     >
       <CardHead>

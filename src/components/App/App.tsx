@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { AddCardFormSetUp } from '../../types/user_forms/add_card_form_set_up';
-import { CardWithPath } from '../../types/card_data_with_path';
+import { CardDataWithPath } from '../../types/card_data_with_path';
 import { ColumnPath, PathToItem } from '../../types/kanban_paths';
 import { EditCardFormSetUp } from '../../types/user_forms/edit_card_form_set_up';
 import { FormsSetup } from '../../types/user_forms/forms_setup';
@@ -48,7 +48,7 @@ function App() {
         });
         console.log(columnToAddTo);
       },
-      editCard: (cardWithPath: CardWithPath) => {
+      editCard: (cardWithPath: CardDataWithPath) => {
         updateBoards(Queries.editCard(boardsData, cardWithPath));
         setUpUserForms({
           ...userFormsSetUp,
@@ -58,7 +58,7 @@ function App() {
           },
         });
       },
-      openEditCardForm: (cardWithPath: CardWithPath) => {
+      openEditCardForm: (cardWithPath: CardDataWithPath) => {
         setUpUserForms({
           addCardFormSetUp: {
             show: false,

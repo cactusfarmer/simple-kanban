@@ -1,12 +1,12 @@
 import { BoardData } from '../types/board_data';
 import { WallData } from '../types/wall_data';
+import { CardDataWithPath } from '../types/card_data_with_path';
+import { ColumnPath } from '../types/kanban_paths';
+import { CardData } from '../types/card_data';
 import {
   getBoardByIndex, getColumnByIndex, logObj, editColumnsPreseveColumnIndexes,
   editCardsPreserveCardIndexes, editBoardsPreserveBoardIndexes,
 } from './helpers';
-import { CardWithPath } from '../types/card_data_with_path';
-import { ColumnPath } from '../types/kanban_paths';
-import { CardData } from '../types/card_data';
 
 export default class Queries {
   public static addBoard = (data: WallData, board: BoardData): WallData => {
@@ -30,7 +30,7 @@ export default class Queries {
 
   public static editCard = (
     data: WallData,
-    { card, path: { boardIndex, columnIndex, cardIndex } }: CardWithPath,
+    { cardData, cardPath: { boardIndex, columnIndex, cardIndex } }: CardDataWithPath,
   ) : WallData => {
     const { boards } = data;
     const board = getBoardByIndex(boards, boardIndex);
@@ -39,7 +39,7 @@ export default class Queries {
     const column = getColumnByIndex(columns, columnIndex);
 
     const { cards } = column;
-    const editedCards = editCardsPreserveCardIndexes(cards, card, cardIndex);
+    const editedCards = editCardsPreserveCardIndexes(cards, cardData, cardIndex);
 
     const editedColumn = { ...column, cards: editedCards };
     const editedColumns = editColumnsPreseveColumnIndexes(

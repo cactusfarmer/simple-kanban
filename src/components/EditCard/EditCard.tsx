@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { CardEvents } from '../../types/kanban_events';
-import { CardWithPath } from '../../types/card_data_with_path';
+import { CardDataWithPath } from '../../types/card_data_with_path';
 
 const EditCardWrap = styled.div`
 position: -webkit-sticky;
@@ -20,18 +20,18 @@ const EditCardHead = styled.h2`
 padding-left: 16px`;
 
 type Props = {
-  formSetUp: CardWithPath
+  formSetUp: CardDataWithPath
   events: CardEvents
 };
 
-function EditCard({ formSetUp: data, events: { editCard } }: Props) {
-  console.log('initial data', data.card.info);
+function EditCard({ formSetUp, events: { editCard } }: Props) {
+  console.log('initial data', formSetUp.cardData.info);
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
     const info = e.target.elements.info.value;
     editCard({
-      ...data, card: { ...data.card, info },
+      ...formSetUp, cardData: { ...formSetUp.cardData, info },
     });
   };
 
@@ -43,8 +43,8 @@ function EditCard({ formSetUp: data, events: { editCard } }: Props) {
   return (
     <EditCardWrap>
       <EditCardHead>Edit card...</EditCardHead>
-      <form action="" onSubmit={handleFormSubmit} key={data.card.info}>
-        <input type="textarea" onChange={handleTextAreaChange} defaultValue={data.card.info} id="info" name="info" />
+      <form action="" onSubmit={handleFormSubmit} key={formSetUp.cardData.info}>
+        <input type="textarea" onChange={handleTextAreaChange} defaultValue={formSetUp.cardData.info} id="info" name="info" />
         <button type="submit">Update...</button>
       </form>
     </EditCardWrap>

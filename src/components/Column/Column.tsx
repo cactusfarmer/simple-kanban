@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import equal from 'fast-deep-equal';
-import { KanbanEvents } from '../../types/kanban_events';
-import { ColumnData } from '../../types/column_data';
-import { ColumnPath, ColumnPathNames, PathToItem } from '../../types/kanban_paths';
 import Card from '../Card/Card';
+import AddCard from '../AddCard/AddCard';
+import { KanbanEvents } from '../../types/kanban_events';
 import { getPathObject } from '../../library/helpers';
 import { FormsSetup } from '../../types/user_forms/forms_setup';
+import { ColumnPath, ColumnPathNames, PathToItem } from '../../types/kanban_paths';
+import { ColumnData } from '../../types/column_data';
 import { AddCardFormSetUp } from '../../types/user_forms/add_card_form_set_up';
-import AddCard from '../AddCard/AddCard';
 
 type Props = {
   column: ColumnData
@@ -27,33 +27,33 @@ padding: 8px`;
 
 const ColumnMain = styled.div``;
 
-const showAddCardForm = (columnTopFormData:AddCardFormSetUp, columnPath: ColumnPath) : Boolean => {
-  if (columnTopFormData.show === false && columnTopFormData.pathData === undefined) return false;
-  if (equal(columnTopFormData.pathData, columnPath)) {
+const showAddCardForm = (addCardFormSetUp:AddCardFormSetUp, columnPath: ColumnPath) : Boolean => {
+  if (addCardFormSetUp.show === false && addCardFormSetUp.pathData === undefined) return false;
+  if (equal(addCardFormSetUp.pathData, columnPath)) {
     return true;
   }
   return false;
 };
 
 function Column({
-  events: { cardEvents, cardEvents: { openAddCardForm } },
-  column, currentPath, formSetUp,
+  events: { cardEvents },
+  column, currentPath, formSetUp: { addCardFormSetUp },
 }: Props) {
   const { cards } = column;
   const columnPath = getPathObject([...currentPath.viaId,
     ...currentPath.viaIndex], ColumnPathNames);
 
-  console.log(formSetUp.addCardFormSetUp, currentPath);
+  console.log(addCardFormSetUp, currentPath);
   return (
     <ColumnWrap>
 
       <ColumnHead>
         {column.name}
-        <button type="button" onClick={() => openAddCardForm(columnPath)}>
+        <button type="button" onClick={() => cardEvents.openAddCardForm(columnPath)}>
           +
         </button>
       </ColumnHead>
-      {showAddCardForm(formSetUp.addCardFormSetUp, columnPath) && (
+      {showAddCardForm(addCardFormSetUp, columnPath) && (
       <AddCard events={cardEvents} />
       )}
       <ColumnMain>
