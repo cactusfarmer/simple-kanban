@@ -7,8 +7,14 @@ import {
   getBoardByIndex, getColumnByIndex, logObj, editColumnsPreseveColumnIndexes,
   editCardsPreserveCardIndexes, editBoardsPreserveBoardIndexes,
 } from './helpers';
+import { BoardItem } from '../interfaces/board_item';
 
 export default class Queries {
+  public static getLastInsertId = (items : BoardItem[]) : number => {
+    const ids = items.map((item) => item.id);
+    return Math.max(...ids);
+  };
+
   public static addBoard = (data: WallData, board: BoardData): WallData => {
     const update = {
       ...data,

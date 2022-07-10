@@ -1,8 +1,11 @@
 import styled from 'styled-components';
+import { CardData } from '../../types/card_data';
 import { CardEvents } from '../../types/kanban_events';
+import { AddCardFormSetUp } from '../../types/user_forms/add_card_form_setup';
 
 type Props = {
   events: CardEvents
+  formSetup: AddCardFormSetUp
 };
 
 const AddCardHead = styled.h2`
@@ -14,11 +17,19 @@ margin-bottom:16px;
 box-sizing: border-box;
 padding: 0`;
 
-function AddCard({ events } : Props) {
+// Need to pass id value to add to here really
+function AddCard({ events, formSetup } : Props) {
+  console.log('addcard: ', formSetup);
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
-    events.addCard();
-    console.log('add card');
+
+    const card : CardData = {
+      id: (formSetup.lastInsertId + 1),
+      name: e.target.elements.name.value,
+      owner: 'Matt',
+    };
+
+    events.addCard(card);
   };
 
   const handleChange = (e: any) => {
@@ -29,7 +40,7 @@ function AddCard({ events } : Props) {
     <AddCardWrap>
       <AddCardHead>
         <form onSubmit={handleFormSubmit}>
-          <input type="text" onChange={handleChange} name="info" id="info" />
+          <input type="text" onChange={handleChange} name="name" id="name" />
           <button type="submit">Add card</button>
         </form>
       </AddCardHead>

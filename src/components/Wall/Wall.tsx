@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
-import { FormsSetup } from '../../types/user_forms/forms_setup';
+import { UserFormsSetup } from '../../types/user_forms/user_forms_setup';
 import { KanbanEvents } from '../../types/kanban_events';
 import { PathToItem } from '../../types/kanban_paths';
 import Board from '../Board/Board';
@@ -9,7 +9,7 @@ type Props = {
   events: KanbanEvents
   boards: BoardData[]
   currentPath : PathToItem
-  formSetUp: FormsSetup
+  formSetUp: UserFormsSetup
 };
 
 const WallWrap = styled.main`

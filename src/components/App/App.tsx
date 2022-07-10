@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { AddCardFormSetUp } from '../../types/user_forms/add_card_form_set_up';
 import { CardDataWithPath } from '../../types/card_data_with_path';
 import { ColumnPath, PathToItem } from '../../types/kanban_paths';
-import { EditCardFormSetUp } from '../../types/user_forms/edit_card_form_set_up';
-import { FormsSetup } from '../../types/user_forms/forms_setup';
+import { UserFormsSetup } from '../../types/user_forms/user_forms_setup';
 import { KanbanEvents } from '../../types/kanban_events';
 import { WallData } from '../../types/wall_data';
 import data from '../../data/boards.json';
@@ -12,6 +10,9 @@ import EditCard from '../EditCard/EditCard';
 import Nav from '../Nav/Nav';
 import Queries from '../../library/queries';
 import Wall from '../Wall/Wall';
+import { FormSetUp } from '../../types/user_forms/form_set_up';
+import { CardData } from '../../types/card_data';
+import { AddCardFormSetUp } from '../../types/user_forms/add_card_form_setup';
 
 const Wrapper = styled.div`
     box-sizing: border-box;
@@ -23,9 +24,9 @@ function App() {
 
   const [userFormsSetUp, setUpUserForms] = useState(
     {
-      editCardFormSetUp: { cardWithPath: undefined, show: false } as EditCardFormSetUp,
-      addCardFormSetUp: { pathData: undefined, show: false } as AddCardFormSetUp,
-    } as FormsSetup,
+      editCardFormSetUp: { data: null, show: false } as FormSetUp,
+      addCardFormSetUp: { data: null, show: false } as FormSetUp,
+    } as UserFormsSetup,
   );
 
   const [path, setPath] = useState(
@@ -34,26 +35,29 @@ function App() {
 
   const kanbanEvents: KanbanEvents = {
     cardEvents: {
-      addCard: () => { console.log('addCard'); },
-      openAddCardForm: (columnToAddTo: ColumnPath) => {
+      addCard: (card: CardData) => { console.log(card); },
+      openAddCardForm: (columnPath: ColumnPath, currentCards: CardData[]) => {
+        const formSetup : AddCardFormSetUp = {
+          columnPath,
+          lastInsertId: Queries.getLastInsertId(currentCards),
+        };
         setUpUserForms({
           editCardFormSetUp: {
             show: false,
-            cardWithPath: undefined,
+            data: null,
           },
           addCardFormSetUp: {
             show: true,
-            pathData: columnToAddTo,
+            data: formSetup,
           },
         });
-        console.log(columnToAddTo);
       },
       editCard: (cardWithPath: CardDataWithPath) => {
         updateBoards(Queries.editCard(boardsData, cardWithPath));
         setUpUserForms({
           ...userFormsSetUp,
           editCardFormSetUp: {
-            cardWithPath: undefined,
+            data: null,
             show: false,
           },
         });
@@ -62,10 +66,10 @@ function App() {
         setUpUserForms({
           addCardFormSetUp: {
             show: false,
-            pathData: undefined,
+            data: null,
           },
           editCardFormSetUp: {
-            cardWithPath,
+            data: cardWithPath,
             show: true,
           },
         });
@@ -87,7 +91,7 @@ function App() {
         setUpUserForms({
           ...userFormsSetUp,
           editCardFormSetUp: {
-            cardWithPath: undefined,
+            data: null,
             show: false,
           },
         });
@@ -110,8 +114,8 @@ function App() {
         currentPath={path}
         formSetUp={userFormsSetUp}
       />
-      {editCardFormSetUp.cardWithPath !== undefined && editCardFormSetUp.show
-        && (<EditCard formSetUp={editCardFormSetUp.cardWithPath} events={cardEvents} />)}
+      {editCardFormSetUp.data !== null && editCardFormSetUp.show
+        && (<EditCard formSetUp={editCardFormSetUp.data} events={cardEvents} />)}
     </Wrapper>
   );
 }

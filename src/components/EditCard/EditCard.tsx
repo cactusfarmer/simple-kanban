@@ -25,7 +25,7 @@ type Props = {
 };
 
 function EditCard({ formSetUp, events: { editCard } }: Props) {
-  console.log('initial data', formSetUp.cardData.info);
+  // console.log('initial data', formSetUp.cardData.info);
 
   const handleFormSubmit = (e: any) => {
     e.preventDefault();

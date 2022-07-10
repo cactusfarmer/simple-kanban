@@ -4,16 +4,16 @@ import Card from '../Card/Card';
 import AddCard from '../AddCard/AddCard';
 import { KanbanEvents } from '../../types/kanban_events';
 import { getPathObject } from '../../library/helpers';
-import { FormsSetup } from '../../types/user_forms/forms_setup';
+import { UserFormsSetup } from '../../types/user_forms/user_forms_setup';
 import { ColumnPath, ColumnPathNames, PathToItem } from '../../types/kanban_paths';
 import { ColumnData } from '../../types/column_data';
-import { AddCardFormSetUp } from '../../types/user_forms/add_card_form_set_up';
+import { FormSetUp } from '../../types/user_forms/form_set_up';
 
 type Props = {
   column: ColumnData
   events: KanbanEvents
   currentPath: PathToItem
-  formSetUp: FormsSetup
+  formSetUp: UserFormsSetup
 };
 
 const ColumnWrap = styled.div`
@@ -27,9 +27,9 @@ padding: 8px`;
 
 const ColumnMain = styled.div``;
 
-const showAddCardForm = (addCardFormSetUp:AddCardFormSetUp, columnPath: ColumnPath) : Boolean => {
-  if (addCardFormSetUp.show === false && addCardFormSetUp.pathData === undefined) return false;
-  if (equal(addCardFormSetUp.pathData, columnPath)) {
+const showAddCardForm = (formSetUp:FormSetUp, columnPath: ColumnPath) : Boolean => {
+  if (formSetUp.show === false && formSetUp.data === null) return false;
+  if (equal(formSetUp.data.columnPath, columnPath)) {
     return true;
   }
   return false;
@@ -40,21 +40,20 @@ function Column({
   column, currentPath, formSetUp: { addCardFormSetUp },
 }: Props) {
   const { cards } = column;
-  const columnPath = getPathObject([...currentPath.viaId,
+  const currentColumn = getPathObject([...currentPath.viaId,
     ...currentPath.viaIndex], ColumnPathNames);
 
-  console.log(addCardFormSetUp, currentPath);
   return (
     <ColumnWrap>
 
       <ColumnHead>
         {column.name}
-        <button type="button" onClick={() => cardEvents.openAddCardForm(columnPath)}>
+        <button type="button" onClick={() => cardEvents.openAddCardForm(currentColumn, cards)}>
           +
         </button>
       </ColumnHead>
-      {showAddCardForm(addCardFormSetUp, columnPath) && (
-      <AddCard events={cardEvents} />
+      {showAddCardForm(addCardFormSetUp, currentColumn) && (
+      <AddCard events={cardEvents} formSetup={addCardFormSetUp.data} />
       )}
       <ColumnMain>
         {

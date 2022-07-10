@@ -47,6 +47,8 @@ const getColumnByIndex = (columns: ColumnData[], columnIndex: number) => {
   return column;
 };
 
+// const getMaxId = ()
+
 const editBoardsPreserveBoardIndexes = (
   boards: BoardData[],
   update: BoardData,
