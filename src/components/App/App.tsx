@@ -13,6 +13,7 @@ import Wall from '../Wall/Wall';
 import { FormSetUp } from '../../types/user_forms/form_set_up';
 import { CardData } from '../../types/card_data';
 import { AddCardFormSetUp } from '../../types/user_forms/add_card_form_setup';
+import cardQueryParts from '../../library/query_parts';
 
 const Wrapper = styled.div`
     box-sizing: border-box;
@@ -36,7 +37,7 @@ function App() {
   const kanbanEvents: KanbanEvents = {
     cardEvents: {
       addCard: (card: CardData, columnPath: ColumnPath) => {
-        const queryParts = Queries.cardQueryParts(data, columnPath);
+        const queryParts = cardQueryParts(data, columnPath);
         updateBoards(Queries.addCard(queryParts, columnPath, card));
         setUpUserForms({
           ...userFormsSetUp,
@@ -64,8 +65,12 @@ function App() {
       },
       editCard: (cardWithPath: CardDataWithPath) => {
         const columnPath = { ...cardWithPath.cardPath } as ColumnPath;
-        const queryParts = Queries.cardQueryParts(data, columnPath);
-        updateBoards(Queries.editCard(queryParts, cardWithPath.cardPath, cardWithPath.cardData));
+        const queryParts = cardQueryParts(data, columnPath);
+        updateBoards(Queries.editCard(
+          queryParts,
+          cardWithPath.cardPath,
+          cardWithPath.cardData,
+        ));
         setUpUserForms({
           ...userFormsSetUp,
           editCardFormSetUp: {

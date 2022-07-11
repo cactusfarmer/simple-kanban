@@ -3,7 +3,7 @@ import { WallData } from '../types/wall_data';
 import { CardPath, ColumnPath } from '../types/kanban_paths';
 import { CardData } from '../types/card_data';
 import {
-  getBoardByIndex, getColumnByIndex, logObj, editColumnsPreseveColumnIndexes,
+  logObj, editColumnsPreseveColumnIndexes,
   editCardsPreserveCardIndexes, editBoardsPreserveBoardIndexes,
 } from './helpers';
 import { BoardItem } from '../interfaces/board_item';
@@ -28,8 +28,8 @@ export default class Queries {
   };
 
   public static addCard = (queryParts: CardQueryParts, columnPath: ColumnPath, card: CardData) => {
-    const newCards = [...queryParts.ourCards, card];
-    return this.updateCards(newCards, queryParts, columnPath);
+    const updatedCards = [...queryParts.ourCards, card];
+    return this.updateCards(updatedCards, queryParts, columnPath);
   };
 
   public static editCard = (queryParts: CardQueryParts, cardPath: CardPath, card: CardData) => {
@@ -37,23 +37,9 @@ export default class Queries {
     return this.updateCards(editedCards, queryParts, { ...cardPath } as ColumnPath);
   };
 
-  public static cardQueryParts = (
-    data: WallData,
-    { boardIndex, columnIndex }: ColumnPath,
-  ): CardQueryParts => {
-    const { boards } = data;
-    const board = getBoardByIndex(boards, boardIndex);
-    const { columns } = board;
-    const column = getColumnByIndex(columns, columnIndex);
-    const { cards } = column;
-    return {
-      wall: data,
-      allBoards: boards,
-      ourBoard: board,
-      allColumns: columns,
-      ourColumn: column,
-      ourCards: cards,
-    };
+  public static deleteCard = (queryParts: CardQueryParts, cardPath: CardPath) => {
+    const editedCards = queryParts.ourCards.filter((c) => c.id !== cardPath.cardId);
+    return this.updateCards(editedCards, queryParts, { ...cardPath } as ColumnPath);
   };
 
   private static updateCards = (

@@ -40,7 +40,7 @@ function AddCard({ events, formSetup } : Props) {
     <AddCardWrap>
       <AddCardHead>
         <form onSubmit={handleFormSubmit}>
-          <input type="text" onChange={handleChange} name="name" id="name" />
+          <input type="text" placeholder="card name" onChange={handleChange} name="name" id="name" />
           <button type="submit">Add card</button>
         </form>
       </AddCardHead>
