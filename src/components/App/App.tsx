@@ -35,9 +35,19 @@ function App() {
 
   const kanbanEvents: KanbanEvents = {
     cardEvents: {
-      addCard: (card: CardData) => { console.log(card); },
+      addCard: (card: CardData, columnPath: ColumnPath) => {
+        const queryParts = Queries.cardQueryParts(data, columnPath);
+        updateBoards(Queries.addCard(queryParts, columnPath, card));
+        setUpUserForms({
+          ...userFormsSetUp,
+          addCardFormSetUp: {
+            data: null,
+            show: false,
+          },
+        });
+      },
       openAddCardForm: (columnPath: ColumnPath, currentCards: CardData[]) => {
-        const formSetup : AddCardFormSetUp = {
+        const formSetup: AddCardFormSetUp = {
           columnPath,
           lastInsertId: Queries.getLastInsertId(currentCards),
         };
@@ -53,7 +63,9 @@ function App() {
         });
       },
       editCard: (cardWithPath: CardDataWithPath) => {
-        updateBoards(Queries.editCard(boardsData, cardWithPath));
+        const columnPath = { ...cardWithPath.cardPath } as ColumnPath;
+        const queryParts = Queries.cardQueryParts(data, columnPath);
+        updateBoards(Queries.editCard(queryParts, cardWithPath.cardPath, cardWithPath.cardData));
         setUpUserForms({
           ...userFormsSetUp,
           editCardFormSetUp: {

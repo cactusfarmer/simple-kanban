@@ -29,7 +29,7 @@ function AddCard({ events, formSetup } : Props) {
       owner: 'Matt',
     };
 
-    events.addCard(card);
+    events.addCard(card, formSetup.columnPath);
   };
 
   const handleChange = (e: any) => {

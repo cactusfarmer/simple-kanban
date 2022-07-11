@@ -1,16 +1,16 @@
 import { BoardData } from '../types/board_data';
 import { WallData } from '../types/wall_data';
-import { CardDataWithPath } from '../types/card_data_with_path';
-import { ColumnPath } from '../types/kanban_paths';
+import { CardPath, ColumnPath } from '../types/kanban_paths';
 import { CardData } from '../types/card_data';
 import {
   getBoardByIndex, getColumnByIndex, logObj, editColumnsPreseveColumnIndexes,
   editCardsPreserveCardIndexes, editBoardsPreserveBoardIndexes,
 } from './helpers';
 import { BoardItem } from '../interfaces/board_item';
+import { CardQueryParts } from '../types/card_query_parts';
 
 export default class Queries {
-  public static getLastInsertId = (items : BoardItem[]) : number => {
+  public static getLastInsertId = (items: BoardItem[]): number => {
     const ids = items.map((item) => item.id);
     return Math.max(...ids);
   };
@@ -27,42 +27,56 @@ export default class Queries {
     return update;
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public static addCard = (data:WallData, path: ColumnPath, card: CardData) => {
-
-    // create a key here? might be worth adding uuid at this point??
-
+  public static addCard = (queryParts: CardQueryParts, columnPath: ColumnPath, card: CardData) => {
+    const newCards = [...queryParts.ourCards, card];
+    return this.updateCards(newCards, queryParts, columnPath);
   };
 
-  public static editCard = (
+  public static editCard = (queryParts: CardQueryParts, cardPath: CardPath, card: CardData) => {
+    const editedCards = editCardsPreserveCardIndexes(queryParts.ourCards, card, cardPath.cardIndex);
+    return this.updateCards(editedCards, queryParts, { ...cardPath } as ColumnPath);
+  };
+
+  public static cardQueryParts = (
     data: WallData,
-    { cardData, cardPath: { boardIndex, columnIndex, cardIndex } }: CardDataWithPath,
-  ) : WallData => {
+    { boardIndex, columnIndex }: ColumnPath,
+  ): CardQueryParts => {
     const { boards } = data;
     const board = getBoardByIndex(boards, boardIndex);
-
     const { columns } = board;
     const column = getColumnByIndex(columns, columnIndex);
-
     const { cards } = column;
-    const editedCards = editCardsPreserveCardIndexes(cards, cardData, cardIndex);
+    return {
+      wall: data,
+      allBoards: boards,
+      ourBoard: board,
+      allColumns: columns,
+      ourColumn: column,
+      ourCards: cards,
+    };
+  };
 
-    const editedColumn = { ...column, cards: editedCards };
-    const editedColumns = editColumnsPreseveColumnIndexes(
-      columns,
-      editedColumn,
+  private static updateCards = (
+    newCards: CardData[],
+    qp: CardQueryParts,
+    { columnIndex, boardIndex }: ColumnPath,
+  ) => {
+    const newColumn = { ...qp.ourColumn, cards: newCards };
+    const newColumns = editColumnsPreseveColumnIndexes(
+      qp.allColumns,
+      newColumn,
       columnIndex,
     );
-    const editedBoard = {
-      ...board,
-      columns: editedColumns,
+    const newBoard = {
+      ...qp.ourBoard,
+      columns: newColumns,
     };
 
-    const editedBoards = editBoardsPreserveBoardIndexes(boards, editedBoard, boardIndex);
+    const newBoards = editBoardsPreserveBoardIndexes(qp.allBoards, newBoard, boardIndex);
 
-    const update : WallData = {
-      ...data,
-      boards: editedBoards,
+    const update: WallData = {
+      ...qp.wall,
+      boards: newBoards,
     };
     return update;
   };
