@@ -101,8 +101,7 @@ function App() {
         console.log(cardPath);
       },
     },
-    boardEvents: {
-      addBoard: () => console.log('Add board'),
+    navEvents: {
       viewBoard: (boardPath: PathToItem) => {
         console.log('viewBoard', boardPath);
         setUpUserForms({
@@ -114,6 +113,13 @@ function App() {
         });
         setPath(boardPath);
       },
+      isSelected: (boardId: number) => {
+        console.log(path)
+        return path.viaId[0] === boardId ? true : false;
+      }
+    },
+    boardEvents: {
+      addBoard: () => console.log('Add board'),
     },
     columnEvents: {
 
@@ -121,10 +127,10 @@ function App() {
   };
   const { editCardFormSetUp } = userFormsSetUp;
   const { boards } = boardsData;
-  const { cardEvents, boardEvents } = kanbanEvents;
+  const { cardEvents, navEvents } = kanbanEvents;
   return (
     <Wrapper>
-      <Nav boards={boards} events={boardEvents} />
+      <Nav boards={boards} events={navEvents} />
       <Wall
         boards={boards}
         events={kanbanEvents}

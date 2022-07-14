@@ -6,11 +6,11 @@ export type KanbanEvents = {
   cardEvents: CardEvents
   boardEvents: BoardEvents
   columnEvents: ColumnEvents
+  navEvents : NavEvents
 };
 
 export type BoardEvents = {
   addBoard: Function,
-  viewBoard: (path: PathToItem) => void
 };
 
 export type CardEvents = {
@@ -21,6 +21,11 @@ export type CardEvents = {
   moveCard: Function,
   deleteCard: Function
 };
+
+export type NavEvents = {
+  viewBoard: (path: PathToItem) => void
+  isSelected: (boardId: number) => Boolean
+}
 
 export type ColumnEvents = {
 

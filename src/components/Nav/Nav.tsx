@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
-import { BoardEvents } from '../../types/kanban_events';
-import NavButton from './NavButton/NavButton';
+import { NavEvents } from '../../types/kanban_events';
+import { NavButton } from './NavButton';
+// import ButtonWrap from './NavButton/NavButton';
 
 type Props = {
   boards: BoardData[]
-  events: BoardEvents
+  events: NavEvents
 };
 const NavWrap = styled.div`
                     background-color: #efefef;
@@ -28,11 +29,14 @@ function Nav({ boards, events }: Props) {
         All Boards
       </NavHead>
       <NavBody>
-        {boards?.map(({ name, id }, index) => (
-          <NavButton boardName={name} boardId={id} index={index} events={events} selected={false}></NavButton>))}
+        {
+          boards?.map(({ name, id }, index) => (
+            <NavButton selected={events.isSelected(id)} key={id} onClick={() => { events.viewBoard({ viaId: [id], viaIndex: [index] }); }}>{name}</NavButton>
+          ))
+        }
       </NavBody>
     </NavWrap>
-  );
+  )
 }
 
 export default Nav;
