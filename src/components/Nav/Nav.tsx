@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { BoardData } from '../../types/board_data';
 import { BoardEvents } from '../../types/kanban_events';
+import NavButton from './NavButton/NavButton';
 
 type Props = {
   boards: BoardData[]
@@ -20,7 +21,7 @@ const NavBody = styled.ul``;
 const NavHead = styled.h2`
 padding-left: 16px`;
 
-function Nav({ boards, events: { viewBoard } }: Props) {
+function Nav({ boards, events }: Props) {
   return (
     <NavWrap>
       <NavHead>
@@ -28,12 +29,7 @@ function Nav({ boards, events: { viewBoard } }: Props) {
       </NavHead>
       <NavBody>
         {boards?.map(({ name, id }, index) => (
-          <div key={id}>
-            <button type="button" onClick={() => { viewBoard({ viaId: [id], viaIndex: [index] }); }}>
-              {name}
-            </button>
-          </div>
-        ))}
+          <NavButton boardName={name} boardId={id} index={index} events={events} selected={false}></NavButton>))}
       </NavBody>
     </NavWrap>
   );
